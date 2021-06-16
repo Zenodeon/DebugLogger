@@ -4,6 +4,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <OutputType>Library</OutputType>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageId>DebugLogger.Wpf</PackageId>
+    <Authors>Zenodeon</Authors>
+    <Product>DebugLogger.Wpf</Product>
+    <Description>Class library To Print Custom Logs on a diffrent window for WPF applications</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/Zenodeon/DebugLogger</RepositoryUrl>
+    <PackageTags>Debug Logger, DebugLogger, debuglogger, debug logger, debug</PackageTags>
   </PropertyGroup>
 
 </Project>
