@@ -12,6 +12,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/Zenodeon/DebugLogger</RepositoryUrl>
     <PackageTags>Debug Logger, DebugLogger, debuglogger, debug logger, debug</PackageTags>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
 </Project>
