@@ -26,16 +26,22 @@ namespace DebugLogger.Wpf.Sample
 
             InitializeComponent();
 
-            DLog.Log("Sample Project Running");
-            DLog.Log("Sample Project Running");
-            DLog.Log("Sample Project Running");
+            DLog.Log("Sample Project Running : Type 1");
+            DLog.Log("Sample Project Running : Type 1");
+            DLog.Log("Sample Project Running : Type 2");
+            DLog.Log("Sample Project Running : Type 2");
+            DLog.Log("Sample Project Running : Type 1");
 
             TestFunction();
         }
 
         private void TestFunction()
         {
-            DLog.Log("Sample Project Running");
+            DLog.Log("Sample Project Running : Type 2");
+            DLog.Log("Sample Project Running : Type 1");
+            DLog.Log("Sample Project Running : Type 1");
+            DLog.Log("Sample Project Running : Type 2");
+            DLog.Log("Sample Project Running : Type 2");
         }
     }
 }

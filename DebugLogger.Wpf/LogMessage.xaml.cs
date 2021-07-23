@@ -18,6 +18,8 @@ namespace DebugLogger.Wpf
     /// </summary>
     public partial class LogMessage : Page
     {
+        public Frame frame { get; set; }
+
         private int count = 0;
         public int logCount
         {

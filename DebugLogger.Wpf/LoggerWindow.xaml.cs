@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Threading.Tasks;
 
 namespace DebugLogger.Wpf
 {
@@ -20,7 +21,7 @@ namespace DebugLogger.Wpf
     {
         private int logWindowCount = 0;
 
-        private Dictionary<string, Frame> logBase = new Dictionary<string, Frame>();
+        private Dictionary<string, LogMessage> logBase = new Dictionary<string, LogMessage>();
 
         public LoggerWindow()
         {
@@ -41,12 +42,11 @@ namespace DebugLogger.Wpf
 
         private void UpdateLogWindowWidth()
         {
-            foreach(KeyValuePair<string, Frame> key in logBase)
+            foreach(KeyValuePair<string, LogMessage> key in logBase)
             {
-                Frame frame = key.Value;
-                LogMessage logMessage = (LogMessage)frame.Content;
+                LogMessage lm = key.Value;
 
-                frame.Width = logMessage.Width = LogList.ActualWidth - 10;
+                lm.frame.Width = lm.Width = LogList.ActualWidth - 10;
             }
         }
 
@@ -61,17 +61,12 @@ namespace DebugLogger.Wpf
         private void NewLog(string log)
         {
             if (logBase.ContainsKey(log))
-            {
-                LogMessage logMessage = (LogMessage)logBase[log].Content;
-
-                if (logMessage != null)
-                    logMessage.logCount++;
-            }
+                logBase[log].logCount++;
             else
             {
-                LogMessage logMessage = new LogMessage(logWindowCount++, log);
-
                 Frame frame = new Frame();
+                LogMessage logMessage = new LogMessage(logWindowCount++, log);
+                logMessage.frame = frame;
 
                 frame.Width = logMessage.Width = LogList.ActualWidth - 10;
 
@@ -79,7 +74,7 @@ namespace DebugLogger.Wpf
 
                 LogList.Items.Add(frame);
 
-                logBase.Add(log, frame);
+                logBase.Add(log, logMessage);
 
                 LogList.ScrollIntoView(frame);
             }
