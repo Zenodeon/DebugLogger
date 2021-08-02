@@ -42,7 +42,7 @@ namespace DebugLogger.Wpf
 
         private void UpdateLogWindowWidth()
         {
-            foreach(KeyValuePair<string, LogMessage> key in logBase)
+            foreach (KeyValuePair<string, LogMessage> key in logBase)
             {
                 LogMessage lm = key.Value;
 
@@ -76,8 +76,40 @@ namespace DebugLogger.Wpf
 
                 logBase.Add(log, logMessage);
 
-                LogList.ScrollIntoView(frame);
+                //LogList.ScrollIntoView(frame);
             }
-        } 
+        }
     }
 }
+
+
+/* Drag System, Not smooth >:(
+        private MouseButtonState llMouseState = MouseButtonState.Released;
+        private double llMousePosY = 0;
+
+        private void LogList_PreviewMouse(object sender, MouseButtonEventArgs e)
+        {
+            llMouseState = e.ButtonState;
+            llMousePosY = e.GetPosition(LogList).Y;
+        }
+
+        private void LogList_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (llMouseState == MouseButtonState.Pressed)
+                UpdateScrollView(e.GetPosition(LogList).Y);
+        }
+
+        private void UpdateScrollView(double dir)
+        {
+            DLog.Log(dir + "");
+
+            Border border = (Border)VisualTreeHelper.GetChild(LogList, 0);
+            ScrollViewer scrollViewer = VisualTreeHelper.GetChild(border, 0) as ScrollViewer;
+            if (scrollViewer != null)
+            {
+                //scrollViewer.ScrollToVerticalOffset(dir/10);
+                //scrollViewer.scroll
+            }
+        }
+*/
+

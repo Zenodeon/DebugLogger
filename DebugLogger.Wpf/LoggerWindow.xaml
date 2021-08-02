@@ -12,11 +12,12 @@
         >
     <Grid>
         <Button Content="Clear" Height="20" VerticalAlignment="Bottom" Width="auto" Background="#2d2d30" Foreground="White" BorderThickness="0" Click="Button_Click"/>
-        <ListBox Name="LogList" Height="auto" Width="auto" Margin="0 0 0 20" Background="#1c1c1c" BorderThickness="0" 
+        <ListBox Name="LogList" Height="auto" Width="auto" Margin="0,35,0,20" Background="#1c1c1c" BorderThickness="0" 
                  ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 PreviewMouseDown="LogList_PreviewMouse"
+                 PreviewMouseUp="LogList_PreviewMouse"
+                 PreviewMouseMove="LogList_PreviewMouseMove"
                  />
-
-
     </Grid>
 </Window>

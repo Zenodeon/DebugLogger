@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -37,11 +38,19 @@ namespace DebugLogger.Wpf.Sample
 
         private void TestFunction()
         {
-            DLog.Log("Sample Project Running : Type 2");
-            DLog.Log("Sample Project Running : Type 1");
             DLog.Log("Sample Project Running : Type 1");
             DLog.Log("Sample Project Running : Type 2");
-            DLog.Log("Sample Project Running : Type 2");
+            DLog.Log("Sample Project Running : Type 3");
+            DLog.Log("Sample Project Running : Type 4");
+            DLog.Log("Sample Project Running : Type 5");
+            DLog.Log("Sample Project Running : Type 6");
+            DLog.Log("Sample Project Running : Type 7");
+            DLog.Log("Sample Project Running : Type 8");
+        }
+
+        private void OnClosingWindow(object sender, CancelEventArgs e)
+        {
+            DLog.Close();
         }
     }
 }
