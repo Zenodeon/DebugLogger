@@ -28,10 +28,7 @@ namespace DebugLogger.Wpf.Sample
             InitializeComponent();
 
             DLog.Log("Sample Project Running : Type 1");
-            DLog.Log("Sample Project Running : Type 1");
             DLog.Log("Sample Project Running : Type 2");
-            DLog.Log("Sample Project Running : Type 2");
-            DLog.Log("Sample Project Running : Type 1");
 
             TestFunction();
         }
@@ -40,17 +37,16 @@ namespace DebugLogger.Wpf.Sample
         {
             DLog.Log("Sample Project Running : Type 1");
             DLog.Log("Sample Project Running : Type 2");
-            DLog.Log("Sample Project Running : Type 3");
-            DLog.Log("Sample Project Running : Type 4");
-            DLog.Log("Sample Project Running : Type 5");
-            DLog.Log("Sample Project Running : Type 6");
-            DLog.Log("Sample Project Running : Type 7");
-            DLog.Log("Sample Project Running : Type 8");
         }
 
         private void OnClosingWindow(object sender, CancelEventArgs e)
         {
             DLog.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DLog.Log(logMessage.Text);
         }
     }
 }

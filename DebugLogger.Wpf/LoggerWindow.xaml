@@ -15,9 +15,6 @@
         <ListBox Name="LogList" Height="auto" Width="auto" Margin="0,35,0,20" Background="#1c1c1c" BorderThickness="0" 
                  ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 PreviewMouseDown="LogList_PreviewMouse"
-                 PreviewMouseUp="LogList_PreviewMouse"
-                 PreviewMouseMove="LogList_PreviewMouseMove"
                  />
     </Grid>
 </Window>

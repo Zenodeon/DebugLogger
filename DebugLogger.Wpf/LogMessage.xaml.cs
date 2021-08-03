@@ -49,5 +49,14 @@ namespace DebugLogger.Wpf
             LogBox.Content = log;
             logCount = 1;
         }
+
+        public LogMessage(double index, string log)
+        {
+            InitializeComponent();
+
+            Index.Content = index;
+            LogBox.Content = log;
+            logCount = 1;
+        }
     }
 }

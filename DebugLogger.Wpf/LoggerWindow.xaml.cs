@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,9 +24,14 @@ namespace DebugLogger.Wpf
 
         private Dictionary<string, LogMessage> logBase = new Dictionary<string, LogMessage>();
 
+        private Stopwatch watch = new Stopwatch();
+
         public LoggerWindow()
         {
             InitializeComponent();
+
+            watch.Start();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -66,6 +72,7 @@ namespace DebugLogger.Wpf
             {
                 Frame frame = new Frame();
                 LogMessage logMessage = new LogMessage(logWindowCount++, log);
+                //LogMessage logMessage = new LogMessage(watch.Elapsed.TotalSeconds, log);
                 logMessage.frame = frame;
 
                 frame.Width = logMessage.Width = LogList.ActualWidth - 10;
@@ -76,7 +83,7 @@ namespace DebugLogger.Wpf
 
                 logBase.Add(log, logMessage);
 
-                //LogList.ScrollIntoView(frame);
+                LogList.ScrollIntoView(frame);
             }
         }
     }
@@ -84,6 +91,10 @@ namespace DebugLogger.Wpf
 
 
 /* Drag System, Not smooth >:(
+                PreviewMouseDown="LogList_PreviewMouse"
+                PreviewMouseUp="LogList_PreviewMouse"
+                PreviewMouseMove="LogList_PreviewMouseMove"
+ 
         private MouseButtonState llMouseState = MouseButtonState.Released;
         private double llMousePosY = 0;
 
