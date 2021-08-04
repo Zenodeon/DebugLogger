@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Threading;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -44,9 +46,31 @@ namespace DebugLogger.Wpf.Sample
             DLog.Close();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Log(object sender, RoutedEventArgs e)
         {
             DLog.Log(logMessage.Text);
+        }
+
+        private void LogX(object sender, RoutedEventArgs e)
+        {
+            int num = int.Parse(mutlipler.Text.Split(' ')[0]);
+            int x = num > 100 ? 1000 : num;
+
+            string message = logMessage.Text;
+
+                for (int i = 1; i <= x; i++)
+                {
+                    DLog.Log(message + " : " + i);
+
+                    //Thread.Sleep(1);
+                }
+        }
+
+        private readonly Regex numericalRegex = new Regex("[^0-9]"); 
+
+        private void mutlipler_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = numericalRegex.IsMatch(e.Text);
         }
     }
 }

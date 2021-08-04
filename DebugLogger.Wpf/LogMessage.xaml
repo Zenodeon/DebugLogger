@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:DebugLogger.Wpf"
       mc:Ignorable="d"
       Title="LogMessage" Height="40" Width="500"
-      Background="#2d2d30"
+      Background="#2d2d30"     
       >
     <Grid>
         <Label Content="0" Name="Index" Height="auto" Margin="5,5,0,5" HorizontalAlignment="Left" Foreground="White" FontSize="13"/>

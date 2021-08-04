@@ -11,10 +11,35 @@
         SizeChanged="Window_SizeChanged"
         >
     <Grid>
-        <Button Content="Clear" Height="20" VerticalAlignment="Bottom" Width="auto" Background="#2d2d30" Foreground="White" BorderThickness="0" Click="Button_Click"/>
-        <ListBox Name="LogList" Height="auto" Width="auto" Margin="0,35,0,20" Background="#1c1c1c" BorderThickness="0" 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.15*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.15*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Button Content="Clear" Grid.Column="0" Background="#2d2d30" Foreground="White" BorderThickness="0" Click="Button_Click"/>
+            <Button Content="ClearAll" Grid.Column="1" Background="#2d2d30" Foreground="White" BorderThickness="0" Click="Button_Click"/>
+
+        </Grid>
+
+        
+        <ListBox Name="TabList" Grid.Row="0" Background="#1c1c1c" BorderThickness="0" 
                  ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  />
+
+        <ScrollViewer Name="logViewer" Grid.Row="1">
+            <ListBox Name="LogList" ScrollViewer.CanContentScroll="False" PreviewMouseWheel="LogList_PreviewMouseWheel" Background="#1c1c1c" BorderThickness="0" 
+                 ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 />
+        </ScrollViewer>
+
     </Grid>
+
 </Window>
