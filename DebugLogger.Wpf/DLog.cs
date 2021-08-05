@@ -10,40 +10,29 @@ namespace DebugLogger.Wpf
 {
     public static class DLog
     {
+        private static bool instantiated = false;
         private static LoggerWindow logWindow;
 
         public static void Instantiate()
         {
-            return;
-            if (logWindow == null)
+            if (!instantiated)
             {
-                Thread newWindowThread = new Thread(new ThreadStart(NewLoggerWindow));
-                newWindowThread.SetApartmentState(ApartmentState.STA);
-                newWindowThread.IsBackground = true;
-                newWindowThread.Start();
+                Thread logThread = new Thread(new ThreadStart(() =>
+                {
+                    LoggerWindow loggerWindow = new LoggerWindow();
+
+                    logWindow = loggerWindow;
+                    logWindow.Show();
+
+                    Dispatcher.Run(); 
+                }));
+
+                logThread.SetApartmentState(ApartmentState.STA);
+                logThread.IsBackground = true;
+                logThread.Start();
+
+                instantiated = true;
             }
-        }
-
-        private static void NewLoggerWindow()
-        {
-            LoggerWindow loggerWindow = new LoggerWindow();
-            SetLogWindow(loggerWindow);
-            //loggerWindow.Show();
-            
-            Dispatcher.Run();
-            
-        }
-
-        public static void SetLogWindow(LoggerWindow window)
-        {
-            if (logWindow == null)
-                logWindow = window;
-            //else
-            //window.Close();
-
-            logWindow.Show();
-
-            //ShowWindowSafe(window);
         }
 
         private static void ShowWindowSafe(Window w)

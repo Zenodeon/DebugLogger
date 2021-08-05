@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -64,9 +65,21 @@ namespace DebugLogger.Wpf
 
         public void ReportLog(string log)
         {
+            return;
             Dispatcher.Invoke(() =>
             {
                 NewLog(log);
+                //return;
+                Thread logThread = new Thread(new ThreadStart(() =>
+                {
+                    NewLog(log);
+
+                    Dispatcher.Run();
+                }));
+
+                logThread.SetApartmentState(ApartmentState.STA);
+                logThread.IsBackground = true;
+                logThread.Start();
             });
         }
 
@@ -85,12 +98,29 @@ namespace DebugLogger.Wpf
 
                 frame.Content = logMessage;
 
-                LogList.Items.Add(frame);
 
-                logBase.Add(log, logMessage);
 
-                LogList.ScrollIntoView(frame);
+                //test(frame, log, logMessage);
+
+
+
+                    Dispatcher.Invoke(() =>
+                    {
+
+                        test(frame, log, logMessage);
+
+
+                    });
             }
+        }
+
+        private void test(Frame f, string s, LogMessage l)
+        {
+                    LogList.Items.Add(f);
+                LogList.ScrollIntoView(f);
+
+                logBase.Add(s, l);
+
         }
     }
 }

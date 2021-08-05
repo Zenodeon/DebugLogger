@@ -30,9 +30,9 @@ namespace DebugLogger.Wpf.Sample
             InitializeComponent();
 
             DLog.Log("Sample Project Running : Type 1");
-            DLog.Log("Sample Project Running : Type 2");
+            //DLog.Log("Sample Project Running : Type 2");
 
-            TestFunction();
+            //TestFunction();
         }
 
         private void TestFunction()
@@ -54,16 +54,14 @@ namespace DebugLogger.Wpf.Sample
         private void LogX(object sender, RoutedEventArgs e)
         {
             int num = int.Parse(mutlipler.Text.Split(' ')[0]);
-            int x = num > 100 ? 1000 : num;
 
             string message = logMessage.Text;
 
-                for (int i = 1; i <= x; i++)
-                {
+            Task.Run(() =>
+            {
+                for (int i = 1; i <= num; i++)
                     DLog.Log(message + " : " + i);
-
-                    //Thread.Sleep(1);
-                }
+            });
         }
 
         private readonly Regex numericalRegex = new Regex("[^0-9]"); 
@@ -71,6 +69,11 @@ namespace DebugLogger.Wpf.Sample
         private void mutlipler_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = numericalRegex.IsMatch(e.Text);
+        }
+
+        private void Lag(object sender, RoutedEventArgs e)
+        {
+            //Thread.Sleep(10000);
         }
     }
 }

@@ -9,6 +9,7 @@
         Background="#202020"
         Closing="OnClosingWindow">
     <Grid>
+        <Button Content="LagTest" HorizontalAlignment="Center" Foreground="White" Background="#303030" BorderBrush="Transparent" Margin="0,392,0,0" VerticalAlignment="Top" Height="32" Width="108" Click="Lag"/>
         <Button Content="Log" HorizontalAlignment="Left" Foreground="White" Background="#303030" BorderBrush="Transparent" Margin="267,227,0,0" VerticalAlignment="Top" Height="32" Width="108" Click="Log"/>
         <TextBox x:Name="logMessage" Foreground="White" Background="Black" BorderBrush="#303030" HorizontalAlignment="Center" Margin="0,195,0,0" TextAlignment="Center" Text="log" TextWrapping="Wrap" VerticalAlignment="Top" Height="32" Width="266" MaxLines="1"/>
         <Button Content="Log X" HorizontalAlignment="Left" Foreground="White" Background="#303030" BorderBrush="Transparent" Margin="425,227,0,0" VerticalAlignment="Top" Height="32" Width="108" Click="LogX"/>
