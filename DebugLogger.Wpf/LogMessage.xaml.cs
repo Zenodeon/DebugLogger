@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -41,21 +42,20 @@ namespace DebugLogger.Wpf
             InitializeComponent();
         }
 
-        public LogMessage(int index, string log)
+        public LogMessage(DateTime time, string log)
         {
             InitializeComponent();
 
-            Index.Content = index;
-            LogBox.Content = log;
-            logCount = 1;
-        }
+            string timePeriod =  $"[{time.ToString("hh:mm:ss:ff")}]";
+            
+            TextRange timePeriodText = new TextRange(LogBox.Document.ContentStart, LogBox.Document.ContentEnd);
+            timePeriodText.Text = timePeriod + "  ";
+            timePeriodText.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Color.FromArgb(255, 100, 100, 100)));
 
-        public LogMessage(double index, string log)
-        {
-            InitializeComponent();
+            TextRange logText = new TextRange(LogBox.Document.ContentEnd, LogBox.Document.ContentEnd);
+            logText.Text = log;
+            logText.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)));
 
-            Index.Content = index;
-            LogBox.Content = log;
             logCount = 1;
         }
     }

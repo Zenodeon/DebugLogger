@@ -30,9 +30,9 @@ namespace DebugLogger.Wpf.Sample
             InitializeComponent();
 
             DLog.Log("Sample Project Running : Type 1");
-            //DLog.Log("Sample Project Running : Type 2");
+            DLog.Log("Sample Project Running : Type 2");
 
-            //TestFunction();
+            TestFunction();
         }
 
         private void TestFunction()
@@ -73,7 +73,7 @@ namespace DebugLogger.Wpf.Sample
 
         private void Lag(object sender, RoutedEventArgs e)
         {
-            //Thread.Sleep(10000);
+            Thread.Sleep(10000);
         }
     }
 }

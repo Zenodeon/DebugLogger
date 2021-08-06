@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 using System.Threading;
 using System.Windows;
@@ -21,8 +22,6 @@ namespace DebugLogger.Wpf
     /// </summary>
     public partial class LoggerWindow : Window
     {
-        private int logWindowCount = 0;
-
         private Dictionary<string, LogMessage> logBase = new Dictionary<string, LogMessage>();
 
         private Stopwatch watch = new Stopwatch();
@@ -39,7 +38,6 @@ namespace DebugLogger.Wpf
         {
             LogList.Items.Clear();
             logBase.Clear();
-            logWindowCount = 0;
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -65,62 +63,31 @@ namespace DebugLogger.Wpf
 
         public void ReportLog(string log)
         {
-            return;
-            Dispatcher.Invoke(() =>
-            {
-                NewLog(log);
-                //return;
-                Thread logThread = new Thread(new ThreadStart(() =>
-                {
-                    NewLog(log);
-
-                    Dispatcher.Run();
-                }));
-
-                logThread.SetApartmentState(ApartmentState.STA);
-                logThread.IsBackground = true;
-                logThread.Start();
-            });
+            Dispatcher.BeginInvoke(() => NewLog(log), DispatcherPriority.Background);
         }
 
         private void NewLog(string log)
         {
+            DateTime time = DateTime.Now;
+
             if (logBase.ContainsKey(log))
                 logBase[log].logCount++;
             else
             {
                 Frame frame = new Frame();
-                LogMessage logMessage = new LogMessage(logWindowCount++, log);
-                //LogMessage logMessage = new LogMessage(watch.Elapsed.TotalSeconds, log);
+                LogMessage logMessage = new LogMessage(time, log);
+
                 logMessage.frame = frame;
 
                 frame.Width = logMessage.Width = LogList.ActualWidth - 10;
 
                 frame.Content = logMessage;
 
+                LogList.Items.Add(frame);
+                LogList.ScrollIntoView(frame);
 
-
-                //test(frame, log, logMessage);
-
-
-
-                    Dispatcher.Invoke(() =>
-                    {
-
-                        test(frame, log, logMessage);
-
-
-                    });
+                logBase.Add(log, logMessage);
             }
-        }
-
-        private void test(Frame f, string s, LogMessage l)
-        {
-                    LogList.Items.Add(f);
-                LogList.ScrollIntoView(f);
-
-                logBase.Add(s, l);
-
         }
     }
 }

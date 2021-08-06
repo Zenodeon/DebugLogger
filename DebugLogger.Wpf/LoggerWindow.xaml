@@ -5,35 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DebugLogger.Wpf"
         mc:Ignorable="d"
-        Title="LoggerWindow" Height="300" Width="700"
+        Title="LoggerWindow" Height="350" Width="800"
         Background="#1c1c1c"
         WindowStartupLocation="Manual" Top="540" Left="1100"
         SizeChanged="Window_SizeChanged"
         >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="35"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="0.15*"/>
+                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            
+
             <Button Content="Clear" Grid.Column="0" Background="#2d2d30" Foreground="White" BorderThickness="0" Click="Button_Click"/>
             <Button Content="ClearAll" Grid.Column="1" Background="#2d2d30" Foreground="White" BorderThickness="0" Click="Button_Click"/>
 
         </Grid>
 
-        
+
         <ListBox Name="TabList" Grid.Row="0" Background="#1c1c1c" BorderThickness="0" 
                  ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  />
 
-        <ScrollViewer Name="logViewer" Grid.Row="1">
+        <ScrollViewer Name="logViewer" Grid.Row="1" 
+                 VerticalScrollBarVisibility="Hidden" 
+                 HorizontalScrollBarVisibility="Disabled">
             <ListBox Name="LogList" ScrollViewer.CanContentScroll="False" PreviewMouseWheel="LogList_PreviewMouseWheel" Background="#1c1c1c" BorderThickness="0" 
                  ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
