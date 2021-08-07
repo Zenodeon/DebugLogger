@@ -9,11 +9,42 @@
         Background="#202020"
         Closing="OnClosingWindow">
     <Grid>
-        <Button Content="LagTest" HorizontalAlignment="Center" Foreground="White" Background="#303030" BorderBrush="Transparent" Margin="0,392,0,0" VerticalAlignment="Top" Height="32" Width="108" Click="Lag"/>
-        <Button Content="Log" HorizontalAlignment="Left" Foreground="White" Background="#303030" BorderBrush="Transparent" Margin="267,227,0,0" VerticalAlignment="Top" Height="32" Width="108" Click="Log"/>
-        <TextBox x:Name="logMessage" Foreground="White" Background="Black" BorderBrush="#303030" HorizontalAlignment="Center" Margin="0,195,0,0" TextAlignment="Center" Text="log" TextWrapping="Wrap" VerticalAlignment="Top" Height="32" Width="266" MaxLines="1"/>
-        <Button Content="Log X" HorizontalAlignment="Left" Foreground="White" Background="#303030" BorderBrush="Transparent" Margin="425,227,0,0" VerticalAlignment="Top" Height="32" Width="108" Click="LogX"/>
-        <TextBox x:Name="mutlipler" PreviewTextInput="mutlipler_PreviewTextInput" Foreground="White" Background="Black" BorderBrush="#303030" HorizontalAlignment="Left" Margin="533,227,0,0" TextAlignment="Center" Text="10" TextWrapping="Wrap" VerticalAlignment="Top" Height="32" Width="43" FontSize="20"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="1.3*"/>
+            <RowDefinition Height="0.3*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="250"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Row="2" Grid.Column="1" x:Name="logMessage" Foreground="White" Background="Black" BorderBrush="#303030" HorizontalAlignment="Stretch" TextAlignment="Center" Text="log" TextWrapping="Wrap" VerticalAlignment="Stretch" />
+            
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="250"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="3" Grid.Column="1" Content = "Log" HorizontalAlignment="Stretch" Foreground="White" Background="#303030" BorderBrush="#303030" VerticalAlignment="Stretch" Click="Log"/>
+
+            <Button Grid.Row="3" Grid.Column="2" Content = "Log x" HorizontalAlignment="Stretch" Foreground="White" Background="#303030" BorderBrush="#303030" VerticalAlignment="Stretch" Click="LogX"/>
+            <TextBox Grid.Row="3" Grid.Column="3" x:Name="mutlipler" PreviewTextInput="mutlipler_PreviewTextInput" Foreground="White" Background="Black" BorderBrush="#303030" HorizontalAlignment="Stretch" TextAlignment="Center" Text="10" TextWrapping="Wrap" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        </Grid>
+
+        <Button Grid.Row="5" Content = "LagTest" HorizontalAlignment="Stretch" Foreground="White" Background="#303030" BorderBrush="#303030" VerticalAlignment="Stretch" Click="Lag"/>
+        
 
     </Grid>
 </Window>

@@ -75,5 +75,8 @@ namespace DebugLogger.Wpf.Sample
         {
             Thread.Sleep(10000);
         }
+
+        
+
     }
 }
