@@ -15,4 +15,10 @@
     <Version>1.0.1</Version>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Page Update="LogTab.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+
 </Project>

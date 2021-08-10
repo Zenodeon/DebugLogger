@@ -4,19 +4,47 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DebugLogger.Wpf"
+        WindowStyle="None"
+        ResizeMode="CanResize"
         mc:Ignorable="d"
-        Title="LoggerWindow" Height="350" Width="800"
+        Title="LoggerWindow" Height="360" Width="800"
         Background="#1c1c1c"
         WindowStartupLocation="Manual" Top="540" Left="1100"
         SizeChanged="Window_SizeChanged"
         >
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5"/>
+    </WindowChrome.WindowChrome>
+
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
             <RowDefinition Height="35"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="2">
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/> 
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Content="Debug Logger" Foreground="White" Background="#2d2d30" Padding="10,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Disabled" FontStyle="Normal" FontWeight="Normal" FontSize="11"/>
+            <Rectangle Grid.Column="0" Fill="Transparent" MouseDown="Bar_Mouse"/>
+
+
+            <Button Grid.Column="1" Background="#2d2d30" BorderThickness="0"/>
+            <Button Grid.Column="2" Background="#2d2d30" BorderThickness="0"/>
+            <Button Grid.Column="3" Background="#2d2d30" BorderThickness="0" Click="CloseWindow"/>
+ 
+
+        </Grid>
+
+
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="100"/>
@@ -27,21 +55,47 @@
 
         </Grid>
 
-
-        <ListBox Name="TabList" Grid.Row="0" Background="#1c1c1c" BorderThickness="0" 
+        <ScrollViewer Name="tabViewer" Grid.Row="1" 
+                 VerticalScrollBarVisibility="Disabled" 
+                 HorizontalScrollBarVisibility="Hidden">
+            <ListBox Name="tabList" ScrollViewer.CanContentScroll="False" PreviewMouseWheel="TabList_PreviewMouseWheel" Background="#1c1c1c" BorderThickness="0" 
                  ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 />
-
-        <ScrollViewer Name="logViewer" Grid.Row="1" 
-                 VerticalScrollBarVisibility="Hidden" 
-                 HorizontalScrollBarVisibility="Disabled">
-            <ListBox Name="LogList" ScrollViewer.CanContentScroll="False" PreviewMouseWheel="LogList_PreviewMouseWheel" Background="#1c1c1c" BorderThickness="0" 
-                 ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 />
+                 >
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
         </ScrollViewer>
 
+        <ItemsControl Grid.Row="2" Name="logList" ItemsSource="{Binding AccountViews.Tables[0]}" PreviewMouseWheel="LogList_PreviewMouseWheel">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel IsVirtualizing="True"
+                              VirtualizationMode="Recycling" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.Template>
+                <ControlTemplate TargetType="ItemsControl">
+                    <ScrollViewer x:Name="logViewer" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                        <ItemsPresenter/>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
+        </ItemsControl>
+
+        <!--
+        <ScrollViewer Name="logViewer" Grid.Row="2" 
+                 VerticalScrollBarVisibility="Hidden" 
+                 HorizontalScrollBarVisibility="Disabled">
+            <ListBox Name="logList" ScrollViewer.CanContentScroll="False" PreviewMouseWheel="LogList_PreviewMouseWheel" Background="#1c1c1c" BorderThickness="0" 
+                 ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+        </ScrollViewer>
+        -->
     </Grid>
 
 </Window>

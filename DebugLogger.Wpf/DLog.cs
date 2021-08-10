@@ -35,18 +35,10 @@ namespace DebugLogger.Wpf
             }
         }
 
-        private static void ShowWindowSafe(Window w)
-        {
-            if (w.Dispatcher.CheckAccess())
-                w.Show();
-            else
-                w.Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(w.Show));
-        }
-
         public static void Close()
         {
             if (logWindow != null)
-                logWindow.Close();
+                logWindow.CloseWindow();
         }
 
         public static void Log(string log)

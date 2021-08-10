@@ -18,7 +18,7 @@
 
         
         <Label Grid.Column="2" Content="0" Name="Count" Foreground="White" FontSize="13" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <RichTextBox Grid.Column="1" Name="LogBox" Foreground="#FF646464" Background="#2d2d30" FontSize="13" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderThickness="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" IsReadOnly="False">
+        <RichTextBox Grid.Column="1" Name="LogBox" Foreground="#FF646464" Background="#2d2d30" FontSize="13" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderThickness="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" IsReadOnly="True">
             <FlowDocument>
                 <Paragraph>
                     <Run Name="LogText" Text="Log Message"/>

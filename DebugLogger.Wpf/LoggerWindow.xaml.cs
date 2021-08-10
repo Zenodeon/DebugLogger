@@ -17,26 +17,46 @@ using System.Threading.Tasks;
 
 namespace DebugLogger.Wpf
 {
-    /// <summary>
-    /// Interaction logic for LoggerWindow.xaml
-    /// </summary>
     public partial class LoggerWindow : Window
     {
         private Dictionary<string, LogMessage> logBase = new Dictionary<string, LogMessage>();
 
-        private Stopwatch watch = new Stopwatch();
+        private ScrollViewer lv;
+
+        private ScrollViewer logViewer 
+        {
+            get
+            {
+                if (lv == null)
+                    lv = (ScrollViewer)logList.Template.FindName("logViewer", logList);
+
+                return lv;
+            }
+        }
 
         public LoggerWindow()
         {
             InitializeComponent();
 
-            watch.Start();
+            test();
+            test();
+        }
 
+        private void test()
+        {
+            Frame frame = new Frame();
+            LogTab tab = new LogTab();
+
+            frame.Width = tab.Width;
+
+            frame.Content = tab;
+
+            tabList.Items.Add(frame);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            LogList.Items.Clear();
+            logList.Items.Clear();
             logBase.Clear();
         }
 
@@ -51,13 +71,19 @@ namespace DebugLogger.Wpf
             e.Handled = true;
         }
 
+        private void TabList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            tabViewer.ScrollToHorizontalOffset(tabViewer.HorizontalOffset - (e.Delta / 5));
+            e.Handled = true;
+        }
+
         private void UpdateLogWindowWidth()
         {
             foreach (KeyValuePair<string, LogMessage> key in logBase)
             {
                 LogMessage lm = key.Value;
 
-                lm.frame.Width = lm.Width = LogList.ActualWidth - 10;
+                lm.frame.Width = lm.Width = logList.ActualWidth - 10;
             }
         }
 
@@ -79,16 +105,42 @@ namespace DebugLogger.Wpf
 
                 logMessage.frame = frame;
 
-                frame.Width = logMessage.Width = LogList.ActualWidth - 10;
+                frame.Width = logMessage.Width = logList.ActualWidth - 10;
 
                 frame.Content = logMessage;
 
-                LogList.Items.Add(frame);
-                LogList.ScrollIntoView(frame);
+                logList.Items.Add(frame);
+
+                //logItem.ScrollIntoView(frame);
 
                 logBase.Add(log, logMessage);
             }
         }
+
+        public void CloseWindow()
+        {
+            Dispatcher.BeginInvoke(() => Close(), DispatcherPriority.Background);
+        }
+
+        private void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Bar_Mouse(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        /*
+        <ScrollViewer Name = "logViewer" Grid.Row="2" 
+                 VerticalScrollBarVisibility="Hidden" 
+                 HorizontalScrollBarVisibility="Disabled">
+            <ListBox Name = "logList" ScrollViewer.CanContentScroll="False" PreviewMouseWheel="LogList_PreviewMouseWheel" Background="#1c1c1c" BorderThickness="0" 
+                 ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+        </ScrollViewer>
+        */
     }
 }
 
