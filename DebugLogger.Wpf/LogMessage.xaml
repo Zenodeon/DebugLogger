@@ -5,20 +5,20 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DebugLogger.Wpf"
       mc:Ignorable="d"
-      Title="LogMessage" Height="45" Width="500"
-      Background="#2d2d30"     
+      Title="LogMessage" Height="45" Width="500"   
       >
+    <Border CornerRadius="8" Background="#2d2d30">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10" />
             <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="40" />
+            <ColumnDefinition Width="40" /> 
             <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
 
         
         <Label Grid.Column="2" Content="0" Name="Count" Foreground="White" FontSize="13" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <RichTextBox Grid.Column="1" Name="LogBox" Foreground="#FF646464" Background="#2d2d30" FontSize="13" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderThickness="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" IsReadOnly="True">
+        <RichTextBox Grid.Column="1" Name="LogBox" Foreground="#FF646464" Background="#2d2d30" FontSize="13" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderThickness="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" IsReadOnly="False">
             <FlowDocument>
                 <Paragraph>
                     <Run Name="LogText" Text="Log Message"/>
@@ -26,4 +26,5 @@
             </FlowDocument>
         </RichTextBox>
     </Grid>
+    </Border>
 </Page>

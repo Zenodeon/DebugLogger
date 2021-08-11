@@ -5,25 +5,26 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DebugLogger.Wpf"
       mc:Ignorable="d"
-      Title="Tab" Height="35" Width="100"
-      Background="#2d2d30"     
+      Title="Tab" Height="35" Width="72"
       >
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" /> 
-            <ColumnDefinition Width="5" />
-        </Grid.ColumnDefinitions>
+    <Border  CornerRadius="0, 0, 8, 8 " Background="#2d2d30">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="5" />
+            </Grid.ColumnDefinitions>
 
-        
-        <Label Grid.Column="2" Content="0" Name="Count" Foreground="White" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0"/>
-        <RichTextBox Grid.Column="1" Name="LogBox" Foreground="White" Background="#2d2d30" BorderThickness="0,0,0,0" IsReadOnly="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Name="LogText" Text="Tab" FontSize="13"/>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
-    </Grid>
+            <Label Grid.Column="2" Content="0" Name="Count" Foreground="White" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0"/>
+
+            <RichTextBox Grid.Column="1" Name="tabBox" Foreground="White" Background="#2d2d30" BorderThickness="0,0,0,0" IsReadOnly="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" TextChanged="TabBox_TextChanged">
+                <FlowDocument Name="tabDoc">
+                    <Paragraph>
+                        <Run Name="tabText" Text="Tab" FontSize="13"/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+        </Grid>
+    </Border>
 </Page>

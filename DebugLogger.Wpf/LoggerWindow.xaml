@@ -54,22 +54,27 @@
             <Button Content="ClearAll" Grid.Column="1" Background="#2d2d30" Foreground="White" BorderThickness="0" Click="Button_Click"/>
 
         </Grid>
+        
+        <!-- Tab List -->
+        <ItemsControl Grid.Row="1" Name="tabList" ItemsSource="{Binding AccountViews.Tables[0]}" PreviewMouseWheel="TabList_PreviewMouseWheel">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel IsVirtualizing="True"
+                                            VirtualizationMode="Recycling" 
+                                            Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
 
-        <ScrollViewer Name="tabViewer" Grid.Row="1" 
-                 VerticalScrollBarVisibility="Disabled" 
-                 HorizontalScrollBarVisibility="Hidden">
-            <ListBox Name="tabList" ScrollViewer.CanContentScroll="False" PreviewMouseWheel="TabList_PreviewMouseWheel" Background="#1c1c1c" BorderThickness="0" 
-                 ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 >
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-            </ListBox>
-        </ScrollViewer>
+            <ItemsControl.Template>
+                <ControlTemplate TargetType="ItemsControl">
+                    <ScrollViewer x:Name="tabViewer" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden">
+                        <ItemsPresenter/>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
+        </ItemsControl>
 
+        <!-- Log List -->
         <ItemsControl Grid.Row="2" Name="logList" ItemsSource="{Binding AccountViews.Tables[0]}" PreviewMouseWheel="LogList_PreviewMouseWheel">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -86,16 +91,6 @@
                 </ControlTemplate>
             </ItemsControl.Template>
         </ItemsControl>
-
-        <!--
-        <ScrollViewer Name="logViewer" Grid.Row="2" 
-                 VerticalScrollBarVisibility="Hidden" 
-                 HorizontalScrollBarVisibility="Disabled">
-            <ListBox Name="logList" ScrollViewer.CanContentScroll="False" PreviewMouseWheel="LogList_PreviewMouseWheel" Background="#1c1c1c" BorderThickness="0" 
-                 ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
-        </ScrollViewer>
-        -->
     </Grid>
 
 </Window>

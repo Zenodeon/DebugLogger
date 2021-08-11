@@ -45,15 +45,41 @@ namespace DebugLogger.Wpf
 
             string timePeriod =  $"[{time.ToString("hh:mm:ss:ff")}]";
             
-            TextRange timePeriodText = new TextRange(LogBox.Document.ContentStart, LogBox.Document.ContentEnd);
+            TextRange timePeriodText = new TextRange(tabBox.Document.ContentStart, tabBox.Document.ContentEnd);
             timePeriodText.Text = timePeriod + "  ";
             timePeriodText.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Color.FromArgb(255, 100, 100, 100)));
 
-            TextRange logText = new TextRange(LogBox.Document.ContentEnd, LogBox.Document.ContentEnd);
+            TextRange logText = new TextRange(tabBox.Document.ContentEnd, tabBox.Document.ContentEnd);
             logText.Text = log;
             logText.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)));
 
             logCount = 1;
         }
-    }
+
+        private void TabBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            if (tabText == null)
+                return;
+
+            DLog.Log(TranslatePoint(new Point(0, 0), tabBox) + " : Before");
+
+
+            FormattedText formattedText = new FormattedText(
+                tabText.Text,
+                CultureInfo.CurrentCulture,
+                tabDoc.FlowDirection,
+                new Typeface(tabDoc.FontFamily, tabDoc.FontStyle, tabDoc.FontWeight, tabDoc.FontStretch),
+                tabDoc.FontSize,
+                tabDoc.Foreground, VisualTreeHelper.GetDpi(this).PixelsPerDip);
+
+            DLog.Log(tabBox.Width + " : Before");
+            //tabBox.Width = formattedText.WidthIncludingTrailingWhitespace;
+            DLog.Log(tabBox.Width + " : After");
+
+            DLog.Log(formattedText.WidthIncludingTrailingWhitespace + "");
+        }
+
+
+    }    
 }

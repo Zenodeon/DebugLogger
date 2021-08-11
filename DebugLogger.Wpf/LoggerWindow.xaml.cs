@@ -34,12 +34,28 @@ namespace DebugLogger.Wpf
             }
         }
 
+        private ScrollViewer tv;
+
+        private ScrollViewer tabViewer
+        {
+            get
+            {
+                if (tv == null)
+                    tv = (ScrollViewer)tabList.Template.FindName("tabViewer", tabList);
+
+                return tv;
+            }
+        }
+
         public LoggerWindow()
         {
             InitializeComponent();
 
-            test();
-            test();
+            int countt = 1;
+
+            for(int i = 0; i < countt; i++)
+                test();
+
         }
 
         private void test()
@@ -47,7 +63,7 @@ namespace DebugLogger.Wpf
             Frame frame = new Frame();
             LogTab tab = new LogTab();
 
-            frame.Width = tab.Width;
+            frame.Width = tab.Width + 1;
 
             frame.Content = tab;
 
@@ -83,7 +99,7 @@ namespace DebugLogger.Wpf
             {
                 LogMessage lm = key.Value;
 
-                lm.frame.Width = lm.Width = logList.ActualWidth - 10;
+                lm.frame.Width = lm.Width = logList.ActualWidth;
             }
         }
 
@@ -105,7 +121,8 @@ namespace DebugLogger.Wpf
 
                 logMessage.frame = frame;
 
-                frame.Width = logMessage.Width = logList.ActualWidth - 10;
+                frame.Width = logMessage.Width = logList.ActualWidth;
+                frame.Height = logMessage.Height + 1;
 
                 frame.Content = logMessage;
 
