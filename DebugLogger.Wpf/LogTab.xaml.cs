@@ -18,68 +18,52 @@ namespace DebugLogger.Wpf
     {
         public Frame frame { get; set; }
 
-        private int count = 0;
-        public int logCount
-        {
-            get
-            {
-                return count;
-            }
-            set
-            {
-                count = value;
-
-                Count.Content = value;
-            }
-        }
-
-
         public LogTab()
         {
             InitializeComponent();
+
         }
 
-        public LogTab(DateTime time, string log)
+        public LogTab(string tabName)
         {
             InitializeComponent();
 
-            string timePeriod =  $"[{time.ToString("hh:mm:ss:ff")}]";
-            
-            TextRange timePeriodText = new TextRange(tabBox.Document.ContentStart, tabBox.Document.ContentEnd);
-            timePeriodText.Text = timePeriod + "  ";
-            timePeriodText.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Color.FromArgb(255, 100, 100, 100)));
+            tabText.Text = tabName;
 
-            TextRange logText = new TextRange(tabBox.Document.ContentEnd, tabBox.Document.ContentEnd);
-            logText.Text = log;
-            logText.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)));
+            if (tabName == "")
+                mainGrid.ColumnDefinitions[2].Width = new GridLength(0, GridUnitType.Pixel);
 
-            logCount = 1;
+            UpdateTabSize();
         }
 
-        private void TabBox_TextChanged(object sender, TextChangedEventArgs e)
+        public void UpdateTabSize()
         {
-
-            if (tabText == null)
-                return;
-
-            DLog.Log(TranslatePoint(new Point(0, 0), tabBox) + " : Before");
-
-
             FormattedText formattedText = new FormattedText(
                 tabText.Text,
                 CultureInfo.CurrentCulture,
-                tabDoc.FlowDirection,
-                new Typeface(tabDoc.FontFamily, tabDoc.FontStyle, tabDoc.FontWeight, tabDoc.FontStretch),
-                tabDoc.FontSize,
-                tabDoc.Foreground, VisualTreeHelper.GetDpi(this).PixelsPerDip);
+                tabText.FlowDirection,
+                new Typeface(tabText.FontFamily, tabText.FontStyle, tabText.FontWeight, tabText.FontStretch),
+                tabText.FontSize,
+                tabText.Foreground, VisualTreeHelper.GetDpi(this).PixelsPerDip);
 
-            DLog.Log(tabBox.Width + " : Before");
-            //tabBox.Width = formattedText.WidthIncludingTrailingWhitespace;
-            DLog.Log(tabBox.Width + " : After");
+            double newTextBoxWidth = formattedText.WidthIncludingTrailingWhitespace;
 
-            DLog.Log(formattedText.WidthIncludingTrailingWhitespace + "");
+            Width = GetGridWidth(Grid.GetColumn(tabBox)) + newTextBoxWidth;
+            
+            tabBox.Width = newTextBoxWidth;   
+
+            //DLog.Log(formattedText.WidthIncludingTrailingWhitespace + "");
         }
 
+        public double GetGridWidth(int dontIncluedCol = -1)
+        {
+            double width = 0;
 
+            for (int i = 0; i < mainGrid.ColumnDefinitions.Count; i++)
+                if(i != dontIncluedCol) 
+                    width += mainGrid.ColumnDefinitions[i].Width.Value;
+
+            return width;
+        }
     }    
 }

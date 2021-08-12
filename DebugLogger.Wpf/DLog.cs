@@ -47,4 +47,10 @@ namespace DebugLogger.Wpf
                 logWindow.ReportLog(log);
         }
     }
+
+    public enum LogType
+    {
+        Warning,
+        Error
+    }
 }

@@ -51,17 +51,28 @@ namespace DebugLogger.Wpf
         {
             InitializeComponent();
 
-            int countt = 1;
+            NewTab("");
 
-            for(int i = 0; i < countt; i++)
-                test();
-
+            foreach (LogType type in (LogType[])Enum.GetValues(typeof(LogType)))
+                NewTab(type.ToString());
         }
 
-        private void test()
+        private void NewTab()
         {
             Frame frame = new Frame();
             LogTab tab = new LogTab();
+
+            frame.Width = tab.Width + 1;
+
+            frame.Content = tab;
+
+            tabList.Items.Add(frame);
+        }
+
+        private void NewTab(string name)
+        {
+            Frame frame = new Frame();
+            LogTab tab = new LogTab(name);
 
             frame.Width = tab.Width + 1;
 
@@ -148,16 +159,6 @@ namespace DebugLogger.Wpf
         {
             DragMove();
         }
-
-        /*
-        <ScrollViewer Name = "logViewer" Grid.Row="2" 
-                 VerticalScrollBarVisibility="Hidden" 
-                 HorizontalScrollBarVisibility="Disabled">
-            <ListBox Name = "logList" ScrollViewer.CanContentScroll="False" PreviewMouseWheel="LogList_PreviewMouseWheel" Background="#1c1c1c" BorderThickness="0" 
-                 ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
-        </ScrollViewer>
-        */
     }
 }
 

@@ -5,21 +5,22 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DebugLogger.Wpf"
       mc:Ignorable="d"
-      Title="Tab" Height="35" Width="72"
+      Title="Tab" Height="35" Width="90"
       >
     <Border  CornerRadius="0, 0, 8, 8 " Background="#2d2d30">
-        <Grid>
+        <Grid Name="mainGrid">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="30" />
-                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="10" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="2" Content="0" Name="Count" Foreground="White" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0"/>
+            <Label Grid.Column="3" Content="99.9K" Name="Count" Foreground="White" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0"/>
 
-            <RichTextBox Grid.Column="1" Name="tabBox" Foreground="White" Background="#2d2d30" BorderThickness="0,0,0,0" IsReadOnly="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" TextChanged="TabBox_TextChanged">
-                <FlowDocument Name="tabDoc">
+            <RichTextBox Grid.Column="1" Name="tabBox" Foreground="White" Background="#2d2d30" BorderThickness="0" Margin="0" Padding="0" IsReadOnly="False" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="13">
+                <FlowDocument local:FlowDocumentPagePadding.PagePadding="0">
                     <Paragraph>
                         <Run Name="tabText" Text="Tab" FontSize="13"/>
                     </Paragraph>
