@@ -17,7 +17,7 @@ namespace DebugLogger.Wpf
     /// <summary>
     /// Interaction logic for LogMessage.xaml
     /// </summary>
-    public partial class LogMessage : Page
+    public partial class LogMessage : UserControl
     {
         public Frame frame { get; set; }
 
@@ -42,18 +42,16 @@ namespace DebugLogger.Wpf
             InitializeComponent();
         }
 
-        public LogMessage(DateTime time, string log)
+        public LogMessage(LogData logData)
         {
             InitializeComponent();
 
-            string timePeriod =  $"[{time.ToString("hh:mm:ss:ff")}]";
-            
             TextRange timePeriodText = new TextRange(LogBox.Document.ContentStart, LogBox.Document.ContentEnd);
-            timePeriodText.Text = timePeriod + "  ";
+            timePeriodText.Text = logData.timePeriod + " ";
             timePeriodText.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Color.FromArgb(255, 100, 100, 100)));
 
             TextRange logText = new TextRange(LogBox.Document.ContentEnd, LogBox.Document.ContentEnd);
-            logText.Text = log;
+            logText.Text = logData.log;
             logText.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)));
 
             logCount = 1;

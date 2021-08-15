@@ -16,7 +16,9 @@ namespace DebugLogger.Wpf
 {
     public partial class LogTab : Page
     {
-        public Frame frame { get; set; }
+        public Frame tabFrame { get; set; }
+
+        //public List<>
 
         public LogTab()
         {
@@ -64,6 +66,16 @@ namespace DebugLogger.Wpf
                     width += mainGrid.ColumnDefinitions[i].Width.Value;
 
             return width;
+        }
+
+
+        private void Tab_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //DLog.Log(e.);
+        }
+        private void Tab_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            DLog.Log(e.ButtonState.ToString());
         }
     }    
 }

@@ -44,13 +44,19 @@ namespace DebugLogger.Wpf
         public static void Log(string log)
         {
             if (logWindow != null)
-                logWindow.ReportLog(log);
+                logWindow.ReportLog(new LogData(DefaultLogType.Master, log));
         }
-    }
 
-    public enum LogType
-    {
-        Warning,
-        Error
+        public static void Warn(string log)
+        {
+            if (logWindow != null)
+                logWindow.ReportLog(new LogData(DefaultLogType.Warning, log));
+        }
+
+        public static void Error(string log)
+        {
+            if (logWindow != null)
+                logWindow.ReportLog(new LogData(DefaultLogType.Error, log));
+        }
     }
 }

@@ -53,7 +53,7 @@ namespace DebugLogger.Wpf
 
             NewTab("");
 
-            foreach (LogType type in (LogType[])Enum.GetValues(typeof(LogType)))
+            foreach (DefaultLogType type in (DefaultLogType[])Enum.GetValues(typeof(DefaultLogType)))
                 NewTab(type.ToString());
         }
 
@@ -92,15 +92,20 @@ namespace DebugLogger.Wpf
             UpdateLogWindowWidth();
         }
 
-        private void LogList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            logViewer.ScrollToVerticalOffset(logViewer.VerticalOffset - (e.Delta / 5));
-            e.Handled = true;
-        }
-
         private void TabList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             tabViewer.ScrollToHorizontalOffset(tabViewer.HorizontalOffset - (e.Delta / 5));
+            e.Handled = true;
+        }
+
+        bool autoScroll = true;
+
+        private void LogList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            //DLog.Log(logViewer.VerticalOffset + " : Before");
+            logViewer.ScrollToVerticalOffset(logViewer.VerticalOffset - (e.Delta / 5));
+            //DLog.Log(logViewer.VerticalOffset + " : After");
+
             e.Handled = true;
         }
 
@@ -114,34 +119,34 @@ namespace DebugLogger.Wpf
             }
         }
 
-        public void ReportLog(string log)
+        public void ReportLog(LogData logData)
         {
-            Dispatcher.BeginInvoke(() => NewLog(log), DispatcherPriority.Background);
+            Dispatcher.BeginInvoke(() => NewLog(logData), DispatcherPriority.Background);
         }
 
-        private void NewLog(string log)
+        private void NewLog(LogData logData)
         {
-            DateTime time = DateTime.Now;
-
-            if (logBase.ContainsKey(log))
-                logBase[log].logCount++;
+            if (logBase.ContainsKey(logData.log))
+                logBase[logData.log].logCount++;
             else
             {
-                Frame frame = new Frame();
-                LogMessage logMessage = new LogMessage(time, log);
+                ContentPresenter frame = new ContentPresenter();
+                LogMessage logMessage = new LogMessage(logData);
 
-                logMessage.frame = frame;
+                //logMessage.frame = frame;
 
                 frame.Width = logMessage.Width = logList.ActualWidth;
                 frame.Height = logMessage.Height + 1;
 
                 frame.Content = logMessage;
 
-                logList.Items.Add(frame);
-
                 //logItem.ScrollIntoView(frame);
 
-                logBase.Add(log, logMessage);
+                int latest = logList.Items.Add(frame);
+
+                logViewer.ScrollToBottom();
+
+                logBase.Add(logData.log, logMessage);
             }
         }
 

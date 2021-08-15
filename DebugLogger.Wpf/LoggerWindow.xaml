@@ -8,89 +8,135 @@
         ResizeMode="CanResize"
         mc:Ignorable="d"
         Title="LoggerWindow" Height="360" Width="800"
-        Background="#1c1c1c"
+        Background="Transparent"
+        AllowsTransparency="True"
         WindowStartupLocation="Manual" Top="540" Left="1100"
         SizeChanged="Window_SizeChanged"
         >
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5"/>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" CornerRadius="8, 8, 8, 8"/>
     </WindowChrome.WindowChrome>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="35"/>
-        </Grid.RowDefinitions>
+    <Window.Resources>
 
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="30"/> 
-            </Grid.ColumnDefinitions>
+        <Style BasedOn="{StaticResource {x:Type Button}}"
+               TargetType="Button"
+               x:Key="CloseBtn">
+            <Setter Property="Background" Value="#2d2d30"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0" CornerRadius="8, 8, 8, 8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter> 
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
-            <Label Grid.Column="0" Content="Debug Logger" Foreground="White" Background="#2d2d30" Padding="10,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Disabled" FontStyle="Normal" FontWeight="Normal" FontSize="11"/>
-            <Rectangle Grid.Column="0" Fill="Transparent" MouseDown="Bar_Mouse"/>
+        <Style BasedOn="{StaticResource {x:Type Button}}"
+               TargetType="Button"
+               x:Key="CtmBtn">
+            <Setter Property="Background" Value="#2d2d30"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0" CornerRadius="8, 8, 8, 8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#75757d"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
+    <Border CornerRadius="8, 8, 8, 8" Background="#2d2d30">
+
+        <Grid> 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="35"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Debug Logger" Foreground="White" Padding="15, 0, 0, 0" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Disabled" FontStyle="Normal" FontWeight="Normal" FontSize="11" VerticalAlignment="Stretch"/>
+                <Rectangle Grid.Column="0" Fill="Transparent" MouseDown="Bar_Mouse"/>
 
 
-            <Button Grid.Column="1" Background="#2d2d30" BorderThickness="0"/>
-            <Button Grid.Column="2" Background="#2d2d30" BorderThickness="0"/>
-            <Button Grid.Column="3" Background="#2d2d30" BorderThickness="0" Click="CloseWindow"/>
- 
-
-        </Grid>
+                <Button Grid.Column="1" Style="{StaticResource CtmBtn}"/>
+                <Button Grid.Column="2" Style="{StaticResource CtmBtn}"/>
+                <Button Grid.Column="3" Style="{StaticResource CloseBtn}" Click="CloseWindow"/>
 
 
-        <Grid Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="100"/>
-            </Grid.ColumnDefinitions>
+            </Grid>
 
-            <Button Content="Clear" Grid.Column="0" Background="#2d2d30" Foreground="White" BorderThickness="0" Click="Button_Click"/>
-            <Button Content="ClearAll" Grid.Column="1" Background="#2d2d30" Foreground="White" BorderThickness="0" Click="Button_Click"/>
 
-        </Grid>
-        
-        <!-- Tab List -->
-        <ItemsControl Grid.Row="1" Name="tabList" ItemsSource="{Binding AccountViews.Tables[0]}" PreviewMouseWheel="TabList_PreviewMouseWheel">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel IsVirtualizing="True"
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="Clear" Style="{StaticResource CtmBtn}" Grid.Column="0" Foreground="White" BorderThickness="0" Click="Button_Click"/>
+                <Button Content="ClearAll" Style="{StaticResource CtmBtn}" Grid.Column="1" Foreground="White" BorderThickness="0" Click="Button_Click"/>
+
+            </Grid>
+
+            <!-- Tab List -->
+            <ItemsControl Grid.Row="1" Name="tabList" ItemsSource="{Binding AccountViews.Tables[0]}" PreviewMouseWheel="TabList_PreviewMouseWheel" FlowDirection="RightToLeft">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel IsVirtualizing="True"
                                             VirtualizationMode="Recycling" 
                                             Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
 
-            <ItemsControl.Template>
-                <ControlTemplate TargetType="ItemsControl">
-                    <ScrollViewer x:Name="tabViewer" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden">
-                        <ItemsPresenter/>
-                    </ScrollViewer>
-                </ControlTemplate>
-            </ItemsControl.Template>
-        </ItemsControl>
+                <ItemsControl.Template>
+                    <ControlTemplate TargetType="ItemsControl">
+                        <ScrollViewer x:Name="tabViewer" Background="#1c1c1c" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden">
+                            <ItemsPresenter/>
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+            </ItemsControl>
 
-        <!-- Log List -->
-        <ItemsControl Grid.Row="2" Name="logList" ItemsSource="{Binding AccountViews.Tables[0]}" PreviewMouseWheel="LogList_PreviewMouseWheel">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel IsVirtualizing="True"
+            <!-- Log List -->
+            <ItemsControl Grid.Row="2" Name="logList" ItemsSource="{Binding AccountViews.Tables[0]}" PreviewMouseWheel="LogList_PreviewMouseWheel">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate> 
+                        <VirtualizingStackPanel IsVirtualizing="True"
                               VirtualizationMode="Recycling" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
 
-            <ItemsControl.Template>
-                <ControlTemplate TargetType="ItemsControl">
-                    <ScrollViewer x:Name="logViewer" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
-                        <ItemsPresenter/>
-                    </ScrollViewer>
-                </ControlTemplate>
-            </ItemsControl.Template>
-        </ItemsControl>
-    </Grid>
-
+                <ItemsControl.Template>
+                    <ControlTemplate TargetType="ItemsControl">
+                        <ScrollViewer x:Name="logViewer" Background="#1c1c1c" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                            <ItemsPresenter/>
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+            </ItemsControl>
+        </Grid>
+    </Border>
 </Window>

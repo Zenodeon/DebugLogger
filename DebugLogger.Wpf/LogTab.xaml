@@ -6,8 +6,11 @@
       xmlns:local="clr-namespace:DebugLogger.Wpf"
       mc:Ignorable="d"
       Title="Tab" Height="35" Width="90"
+      PreviewMouseDown="Tab_PreviewMouseDown"
+      PreviewMouseUp="Tab_PreviewMouseUp"
       >
-    <Border  CornerRadius="0, 0, 8, 8 " Background="#2d2d30">
+
+    <Border  CornerRadius="8, 8, 8, 8 " Background="#2d2d30">
         <Grid Name="mainGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10" />
@@ -17,9 +20,9 @@
                 <ColumnDefinition Width="10" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="3" Content="99.9K" Name="Count" Foreground="White" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0"/>
+            <Label Grid.Column="3" Content="0" Name="Count" Foreground="White" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0"/>
 
-            <RichTextBox Grid.Column="1" Name="tabBox" Foreground="White" Background="#2d2d30" BorderThickness="0" Margin="0" Padding="0" IsReadOnly="False" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="13">
+            <RichTextBox Grid.Column="1" Name="tabBox" Foreground="White" Background="Transparent" BorderThickness="0" Margin="0" Padding="0" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="13" AcceptsReturn="False" AutoWordSelection="False" IsUndoEnabled="False" Focusable="False" Cursor="Arrow">
                 <FlowDocument local:FlowDocumentPagePadding.PagePadding="0">
                     <Paragraph>
                         <Run Name="tabText" Text="Tab" FontSize="13"/>
