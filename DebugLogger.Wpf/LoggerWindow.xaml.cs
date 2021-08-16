@@ -19,10 +19,28 @@ namespace DebugLogger.Wpf
 {
     public partial class LoggerWindow : Window
     {
+        private bool atSll = true;
+        private bool autoScroll
+        {
+            get
+            {
+                return
+                    atSll;
+            }
+            set 
+            {
+                atSll = value;
+
+                if(value)
+                    Resources["ToggleCurrent"] = Resources["ToggleOn"];
+                else
+                    Resources["ToggleCurrent"] = Resources["ToggleOff"];
+            }
+        }
+
         private Dictionary<string, LogMessage> logBase = new Dictionary<string, LogMessage>();
 
         private ScrollViewer lv;
-
         private ScrollViewer logViewer 
         {
             get
@@ -35,7 +53,6 @@ namespace DebugLogger.Wpf
         }
 
         private ScrollViewer tv;
-
         private ScrollViewer tabViewer
         {
             get
@@ -56,6 +73,53 @@ namespace DebugLogger.Wpf
             foreach (DefaultLogType type in (DefaultLogType[])Enum.GetValues(typeof(DefaultLogType)))
                 NewTab(type.ToString());
         }
+
+        #region UI Event
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            logList.Items.Clear();
+            logBase.Clear();
+        }
+
+        private void ToggleAutoScroll(object sender, RoutedEventArgs e)
+        {
+            autoScroll = !autoScroll;
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            UpdateLogWindowWidth();
+        }
+
+        private void TabList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            tabViewer.ScrollToHorizontalOffset(tabViewer.HorizontalOffset - (e.Delta / 5));
+            e.Handled = true;
+        }
+
+        private void LogList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            logViewer.ScrollToVerticalOffset(logViewer.VerticalOffset - (e.Delta / 5));
+
+            e.Handled = true;
+        }
+
+        private void Bar_Mouse(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        public void CloseWindow()
+        {
+            Dispatcher.BeginInvoke(() => Close(), DispatcherPriority.Background);
+        }
+
+        private void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        #endregion
 
         private void NewTab()
         {
@@ -81,33 +145,7 @@ namespace DebugLogger.Wpf
             tabList.Items.Add(frame);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            logList.Items.Clear();
-            logBase.Clear();
-        }
-
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            UpdateLogWindowWidth();
-        }
-
-        private void TabList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            tabViewer.ScrollToHorizontalOffset(tabViewer.HorizontalOffset - (e.Delta / 5));
-            e.Handled = true;
-        }
-
-        bool autoScroll = true;
-
-        private void LogList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            //DLog.Log(logViewer.VerticalOffset + " : Before");
-            logViewer.ScrollToVerticalOffset(logViewer.VerticalOffset - (e.Delta / 5));
-            //DLog.Log(logViewer.VerticalOffset + " : After");
-
-            e.Handled = true;
-        }
+       
 
         private void UpdateLogWindowWidth()
         {
@@ -140,29 +178,13 @@ namespace DebugLogger.Wpf
 
                 frame.Content = logMessage;
 
-                //logItem.ScrollIntoView(frame);
+                logList.Items.Add(frame);
 
-                int latest = logList.Items.Add(frame);
-
-                logViewer.ScrollToBottom();
+                if (autoScroll)
+                    logViewer.ScrollToBottom();
 
                 logBase.Add(logData.log, logMessage);
             }
-        }
-
-        public void CloseWindow()
-        {
-            Dispatcher.BeginInvoke(() => Close(), DispatcherPriority.Background);
-        }
-
-        private void CloseWindow(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void Bar_Mouse(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
         }
     }
 }

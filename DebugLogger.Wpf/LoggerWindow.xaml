@@ -18,6 +18,9 @@
     </WindowChrome.WindowChrome>
 
     <Window.Resources>
+        <SolidColorBrush x:Key="ToggleOn" Color="#2d2d30" />
+        <SolidColorBrush x:Key="ToggleOff" Color="#3A3A3D" />
+        <SolidColorBrush x:Key="ToggleCurrent"/>
 
         <Style BasedOn="{StaticResource {x:Type Button}}"
                TargetType="Button"
@@ -31,7 +34,7 @@
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
-            </Setter> 
+            </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="Red"/>
@@ -58,11 +61,30 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <Style BasedOn="{StaticResource {x:Type Button}}"
+               TargetType="Button"
+               x:Key="AutoScrollToggleBtn">
+            <Setter Property="Background" Value="{DynamicResource ToggleCurrent}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0" CornerRadius="8, 8, 8, 8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+
+            </Style.Triggers>
+        </Style>
+
     </Window.Resources>
-    
+
     <Border CornerRadius="8, 8, 8, 8" Background="#2d2d30">
 
-        <Grid> 
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="20" />
                 <RowDefinition Height="35"/>
@@ -73,6 +95,8 @@
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="10"/>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
@@ -81,10 +105,11 @@
                 <Label Grid.Column="0" Content="Debug Logger" Foreground="White" Padding="15, 0, 0, 0" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Disabled" FontStyle="Normal" FontWeight="Normal" FontSize="11" VerticalAlignment="Stretch"/>
                 <Rectangle Grid.Column="0" Fill="Transparent" MouseDown="Bar_Mouse"/>
 
+                <Button Grid.Column="1" Style="{DynamicResource AutoScrollToggleBtn}" Name="TAC" Click="ToggleAutoScroll"/>
 
-                <Button Grid.Column="1" Style="{StaticResource CtmBtn}"/>
-                <Button Grid.Column="2" Style="{StaticResource CtmBtn}"/>
-                <Button Grid.Column="3" Style="{StaticResource CloseBtn}" Click="CloseWindow"/>
+                <Button Grid.Column="3" Style="{StaticResource CtmBtn}"/>
+                <Button Grid.Column="4" Style="{StaticResource CtmBtn}"/>
+                <Button Grid.Column="5" Style="{StaticResource CloseBtn}" Click="CloseWindow"/>
 
 
             </Grid>
@@ -123,7 +148,7 @@
             <!-- Log List -->
             <ItemsControl Grid.Row="2" Name="logList" ItemsSource="{Binding AccountViews.Tables[0]}" PreviewMouseWheel="LogList_PreviewMouseWheel">
                 <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate> 
+                    <ItemsPanelTemplate>
                         <VirtualizingStackPanel IsVirtualizing="True"
                               VirtualizationMode="Recycling" />
                     </ItemsPanelTemplate>
