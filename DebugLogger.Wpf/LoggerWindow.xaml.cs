@@ -31,10 +31,16 @@ namespace DebugLogger.Wpf
             {
                 atSll = value;
 
-                if(value)
+                if (value)
+                {
                     Resources["ToggleCurrent"] = Resources["ToggleOn"];
+                    SEBtn.Visibility = Visibility.Collapsed;
+                }
                 else
+                {
                     Resources["ToggleCurrent"] = Resources["ToggleOff"];
+                    SEBtn.Visibility = Visibility.Visible;
+                }
             }
         }
 
@@ -75,6 +81,10 @@ namespace DebugLogger.Wpf
         }
 
         #region UI Event
+        //Start Region -----------------------------------------------------------------------------------------
+        //Start Region -----------------------------------------------------------------------------------------
+        //Start Region -----------------------------------------------------------------------------------------
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             logList.Items.Clear();
@@ -84,6 +94,11 @@ namespace DebugLogger.Wpf
         private void ToggleAutoScroll(object sender, RoutedEventArgs e)
         {
             autoScroll = !autoScroll;
+        }
+        private void ScrollToEnd(object sender, RoutedEventArgs e)
+        {
+            logViewer.ScrollToVerticalOffset(logViewer.ScrollableHeight);
+            autoScroll = true;
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -99,6 +114,9 @@ namespace DebugLogger.Wpf
 
         private void LogList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
+            if (autoScroll & e.Delta > 0)
+                autoScroll = false;
+               
             logViewer.ScrollToVerticalOffset(logViewer.VerticalOffset - (e.Delta / 5));
 
             e.Handled = true;
@@ -119,33 +137,23 @@ namespace DebugLogger.Wpf
             Close();
         }
 
+        //End Region -----------------------------------------------------------------------------------------
+        //End Region -----------------------------------------------------------------------------------------
+        //End Region -----------------------------------------------------------------------------------------
         #endregion
-
-        private void NewTab()
-        {
-            Frame frame = new Frame();
-            LogTab tab = new LogTab();
-
-            frame.Width = tab.Width + 1;
-
-            frame.Content = tab;
-
-            tabList.Items.Add(frame);
-        }
 
         private void NewTab(string name)
         {
-            Frame frame = new Frame();
+            ContentPresenter tabFrame = new ContentPresenter();
             LogTab tab = new LogTab(name);
 
-            frame.Width = tab.Width + 1;
+            tabFrame.Width = tab.Width;
+            //tabFrame.Height = tab.Height;
 
-            frame.Content = tab;
+            tabFrame.Content = tab;
 
-            tabList.Items.Add(frame);
-        }
-
-       
+            tabList.Items.Add(tabFrame);
+        }      
 
         private void UpdateLogWindowWidth()
         {
@@ -181,7 +189,7 @@ namespace DebugLogger.Wpf
                 logList.Items.Add(frame);
 
                 if (autoScroll)
-                    logViewer.ScrollToBottom();
+                    logViewer.ScrollToVerticalOffset(logViewer.ScrollableHeight);
 
                 logBase.Add(logData.log, logMessage);
             }

@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace DebugLogger.Wpf
 {
-    public partial class LogTab : Page
+    public partial class LogTab : UserControl
     {
         public Frame tabFrame { get; set; }
 
@@ -51,8 +51,8 @@ namespace DebugLogger.Wpf
             double newTextBoxWidth = formattedText.WidthIncludingTrailingWhitespace;
 
             Width = GetGridWidth(Grid.GetColumn(tabBox)) + newTextBoxWidth;
-            
-            tabBox.Width = newTextBoxWidth;   
+
+            tabBox.Width = newTextBoxWidth;
 
             //DLog.Log(formattedText.WidthIncludingTrailingWhitespace + "");
         }

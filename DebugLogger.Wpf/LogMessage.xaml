@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:DebugLogger.Wpf"
       mc:Ignorable="d"
       Height="45" Width="500"   
+      FlowDirection="LeftToRight"           
       >
     <Border CornerRadius="8" Background="#2d2d30">
     <Grid>
