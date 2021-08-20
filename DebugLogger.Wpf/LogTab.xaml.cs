@@ -16,24 +16,38 @@ namespace DebugLogger.Wpf
 {
     public partial class LogTab : UserControl
     {
-        public Frame tabFrame { get; set; }
+        public ContentPresenter frame { get; set; }
 
-        //public List<>
+        private Dictionary<string, LogData> logs = new Dictionary<string, LogData>();
 
         public LogTab()
         {
             InitializeComponent();
+        }
 
+        public LogTab(Enum tabName)
+        {
+            InitializeTab(tabName.ToString());
         }
 
         public LogTab(string tabName)
         {
+            InitializeTab(tabName);
+        }
+
+        private void InitializeTab(string tabName)
+        {
             InitializeComponent();
 
-            tabText.Text = tabName;
+            bool isMaster = tabName == DefaultLogType.Master.ToString();
 
-            if (tabName == "")
+            if (isMaster)
+            {
+                tabName = "";
                 mainGrid.ColumnDefinitions[2].Width = new GridLength(0, GridUnitType.Pixel);
+            }
+
+            tabText.Text = tabName;
 
             UpdateTabSize();
         }
@@ -53,8 +67,6 @@ namespace DebugLogger.Wpf
             Width = GetGridWidth(Grid.GetColumn(tabBox)) + newTextBoxWidth;
 
             tabBox.Width = newTextBoxWidth;
-
-            //DLog.Log(formattedText.WidthIncludingTrailingWhitespace + "");
         }
 
         public double GetGridWidth(int dontIncluedCol = -1)
@@ -76,6 +88,21 @@ namespace DebugLogger.Wpf
         private void Tab_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             DLog.Log(e.ButtonState.ToString());
+        }
+
+        public void Add(LogData logData)
+        {
+            if (logs.ContainsKey(logData.log))
+            { 
+                if(logs[logData.log] == logData)
+                {
+
+                }
+            }
+            else
+            {
+                logs.Add(logData.log, logData);
+            }
         }
     }    
 }

@@ -47,7 +47,7 @@ namespace DebugLogger.Wpf
             InitializeComponent();
 
             TextRange timePeriodText = new TextRange(LogBox.Document.ContentStart, LogBox.Document.ContentEnd);
-            timePeriodText.Text = logData.timePeriod + " ";
+            timePeriodText.Text = logData.latestOccurrence.defaultFormat() + " ";
             timePeriodText.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Color.FromArgb(255, 100, 100, 100)));
 
             TextRange logText = new TextRange(LogBox.Document.ContentEnd, LogBox.Document.ContentEnd);

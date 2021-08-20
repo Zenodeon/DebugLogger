@@ -19,14 +19,14 @@ namespace DebugLogger.Wpf
 {
     public partial class LoggerWindow : Window
     {
+        private Dictionary<string, LogTab> tabList = new Dictionary<string, LogTab>();
+        private Dictionary<string, LogMessage> logBase = new Dictionary<string, LogMessage>();
+        private List<LogMessage> logs = new List<LogMessage>();
+
         private bool atSll = true;
         private bool autoScroll
         {
-            get
-            {
-                return
-                    atSll;
-            }
+            get { return atSll; }
             set 
             {
                 atSll = value;
@@ -44,19 +44,6 @@ namespace DebugLogger.Wpf
             }
         }
 
-        private Dictionary<string, LogMessage> logBase = new Dictionary<string, LogMessage>();
-
-        private ScrollViewer lv;
-        private ScrollViewer logViewer 
-        {
-            get
-            {
-                if (lv == null)
-                    lv = (ScrollViewer)logList.Template.FindName("logViewer", logList);
-
-                return lv;
-            }
-        }
 
         private ScrollViewer tv;
         private ScrollViewer tabViewer
@@ -64,21 +51,24 @@ namespace DebugLogger.Wpf
             get
             {
                 if (tv == null)
-                    tv = (ScrollViewer)tabList.Template.FindName("tabViewer", tabList);
+                    tv = (ScrollViewer)tabPanel.Template.FindName("tabViewer", tabPanel);
 
                 return tv;
             }
         }
 
-        public LoggerWindow()
+        private ScrollViewer lv;
+        private ScrollViewer logViewer 
         {
-            InitializeComponent();
+            get
+            {
+                if (lv == null)
+                    lv = (ScrollViewer)logPanel.Template.FindName("logViewer", logPanel);
 
-            NewTab("");
-
-            foreach (DefaultLogType type in (DefaultLogType[])Enum.GetValues(typeof(DefaultLogType)))
-                NewTab(type.ToString());
+                return lv;
+            }
         }
+
 
         #region UI Event
         //Start Region -----------------------------------------------------------------------------------------
@@ -87,7 +77,7 @@ namespace DebugLogger.Wpf
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            logList.Items.Clear();
+            logPanel.Items.Clear();
             logBase.Clear();
         }
 
@@ -116,7 +106,7 @@ namespace DebugLogger.Wpf
         {
             if (autoScroll & e.Delta > 0)
                 autoScroll = false;
-               
+
             logViewer.ScrollToVerticalOffset(logViewer.VerticalOffset - (e.Delta / 5));
 
             e.Handled = true;
@@ -142,17 +132,27 @@ namespace DebugLogger.Wpf
         //End Region -----------------------------------------------------------------------------------------
         #endregion
 
-        private void NewTab(string name)
+        public LoggerWindow()
+        {
+            InitializeComponent();
+
+            foreach (DefaultLogType type in (DefaultLogType[])Enum.GetValues(typeof(DefaultLogType)))
+                CreateTab(type);
+        }
+
+        private void CreateTab(Enum tabName)
         {
             ContentPresenter tabFrame = new ContentPresenter();
-            LogTab tab = new LogTab(name);
+            LogTab tab = new LogTab(tabName);
+
+            tab.frame = tabFrame;
 
             tabFrame.Width = tab.Width;
-            //tabFrame.Height = tab.Height;
-
+            tabFrame.Height = tab.Height;
             tabFrame.Content = tab;
 
-            tabList.Items.Add(tabFrame);
+            tabList.Add(tabName.ToString(), tab);
+            tabPanel.Items.Add(tabFrame);
         }      
 
         private void UpdateLogWindowWidth()
@@ -161,7 +161,7 @@ namespace DebugLogger.Wpf
             {
                 LogMessage lm = key.Value;
 
-                lm.frame.Width = lm.Width = logList.ActualWidth;
+                lm.frame.Width = lm.Width = logPanel.ActualWidth;
             }
         }
 
@@ -169,6 +169,7 @@ namespace DebugLogger.Wpf
         {
             Dispatcher.BeginInvoke(() => NewLog(logData), DispatcherPriority.Background);
         }
+
 
         private void NewLog(LogData logData)
         {
@@ -181,12 +182,50 @@ namespace DebugLogger.Wpf
 
                 //logMessage.frame = frame;
 
-                frame.Width = logMessage.Width = logList.ActualWidth;
+                frame.Width = logMessage.Width = logPanel.ActualWidth;
                 frame.Height = logMessage.Height + 1;
 
                 frame.Content = logMessage;
 
-                logList.Items.Add(frame);
+                logPanel.Items.Add(frame);
+
+                if (autoScroll)
+                    logViewer.ScrollToVerticalOffset(logViewer.ScrollableHeight);
+
+                logBase.Add(logData.log, logMessage);
+            }
+
+        }
+
+        /*
+        private void NewLog(LogData logData)
+        {/*
+            if(tabList.ContainsKey(logData.LogTypeS))
+            {
+                tabList[logData.LogTypeS].Add(logData);
+            }
+            else
+            {
+
+            }
+            
+
+
+            if (logBase.ContainsKey(logData.log))
+                logBase[logData.log].logCount++;
+            else
+            {
+                ContentPresenter frame = new ContentPresenter();
+                LogMessage logMessage = new LogMessage(logData);
+
+                //logMessage.frame = frame;
+
+                frame.Width = logMessage.Width = logPanel.ActualWidth;
+                frame.Height = logMessage.Height + 1;
+
+                frame.Content = logMessage;
+
+                logPanel.Items.Add(frame);
 
                 if (autoScroll)
                     logViewer.ScrollToVerticalOffset(logViewer.ScrollableHeight);
@@ -194,6 +233,7 @@ namespace DebugLogger.Wpf
                 logBase.Add(logData.log, logMessage);
             }
         }
+*/
     }
 }
 

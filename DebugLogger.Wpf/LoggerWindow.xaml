@@ -156,7 +156,7 @@
             </Grid>
             
             <!-- Tab List -->
-            <ItemsControl Grid.Row="1" Name="tabList" ItemsSource="{Binding AccountViews.Tables[0]}" PreviewMouseWheel="TabList_PreviewMouseWheel" FlowDirection="RightToLeft">
+            <ItemsControl Grid.Row="1" Name="tabPanel" ItemsSource="{Binding AccountViews.Tables[0]}" PreviewMouseWheel="TabList_PreviewMouseWheel" FlowDirection="RightToLeft">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel IsVirtualizing="True"
@@ -175,7 +175,7 @@
             </ItemsControl>
 
             <!-- Log List -->
-            <ItemsControl Grid.Row="2" Name="logList" ItemsSource="{Binding AccountViews.Tables[0]}" PreviewMouseWheel="LogList_PreviewMouseWheel">
+            <ItemsControl Grid.Row="2" Name="logPanel" ItemsSource="{Binding AccountViews.Tables[0]}" PreviewMouseWheel="LogList_PreviewMouseWheel">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel IsVirtualizing="True"
