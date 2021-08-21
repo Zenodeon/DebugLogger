@@ -170,7 +170,6 @@ namespace DebugLogger.Wpf
             Dispatcher.BeginInvoke(() => NewLog(logData), DispatcherPriority.Background);
         }
 
-
         private void NewLog(LogData logData)
         {
             if (logBase.ContainsKey(logData.log))

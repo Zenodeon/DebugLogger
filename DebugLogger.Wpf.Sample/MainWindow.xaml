@@ -26,25 +26,29 @@
             </Grid.ColumnDefinitions>
 
             <TextBox Grid.Row="2" Grid.Column="1" x:Name="logMessage" Foreground="White" Background="Black" BorderBrush="#303030" HorizontalAlignment="Stretch" TextAlignment="Center" Text="log" TextWrapping="Wrap" VerticalAlignment="Stretch" />
-            
+
         </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1.5*"/>
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.25*"/>
+                <ColumnDefinition Width="0.25*"/>
                 <ColumnDefinition Width="250"/>
             </Grid.ColumnDefinitions>
 
             <Button Grid.Row="3" Grid.Column="1" Content = "Log" HorizontalAlignment="Stretch" Foreground="White" Background="#303030" BorderBrush="#303030" VerticalAlignment="Stretch" Click="Log"/>
 
-            <Button Grid.Row="3" Grid.Column="2" Content = "Log x" HorizontalAlignment="Stretch" Foreground="White" Background="#303030" BorderBrush="#303030" VerticalAlignment="Stretch" Click="LogX"/>
-            <TextBox Grid.Row="3" Grid.Column="3" x:Name="mutlipler" PreviewTextInput="mutlipler_PreviewTextInput" Foreground="White" Background="Black" BorderBrush="#303030" HorizontalAlignment="Stretch" TextAlignment="Center" Text="10" TextWrapping="Wrap" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Button Grid.Row="3" Grid.Column="2" Content = "[Log x]" HorizontalAlignment="Stretch" Foreground="White" Background="#303030" BorderBrush="#303030" VerticalAlignment="Stretch" Click="LogX_Current"/>
+            <Button Grid.Row="3" Grid.Column="3" Content = "(Log x)" HorizontalAlignment="Stretch" Foreground="White" Background="#303030" BorderBrush="#303030" VerticalAlignment="Stretch" Click="LogX"/>
+            <TextBox Grid.Row="3" Grid.Column="4" x:Name="mutlipler" PreviewTextInput="mutlipler_PreviewTextInput" Foreground="White" Background="Black" BorderBrush="#303030" HorizontalAlignment="Stretch" TextAlignment="Center" Text="10" TextWrapping="Wrap" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Rectangle Grid.Row="3" Grid.Column="5" x:Name="Indicator" Fill="Red" />
         </Grid>
 
         <Button Grid.Row="5" Content = "LagTest" HorizontalAlignment="Stretch" Foreground="White" Background="#303030" BorderBrush="#303030" VerticalAlignment="Stretch" Click="Lag"/>
-        
+
 
     </Grid>
 </Window>

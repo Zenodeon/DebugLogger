@@ -58,7 +58,7 @@ namespace DebugLogger.Wpf
     {
         public static string defaultFormat(this DateTime dt)
         {
-            return $"[{dt.ToString("hh:mm:ss:fffff")}]";
+            return $"[{dt.ToString("hh:mm:ss:fff")}]";
         }
 
     }

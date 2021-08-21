@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace DebugLogger.Wpf.Sample
 {
@@ -28,6 +29,7 @@ namespace DebugLogger.Wpf.Sample
             DLog.Instantiate();
 
             InitializeComponent();
+            ChangeIndicator(IndicatorState.Inactive);
 
             DLog.Log("Sample Project Running : Type 1");
             DLog.Log("Sample Project Running : Type 2");
@@ -51,8 +53,24 @@ namespace DebugLogger.Wpf.Sample
             DLog.Log(logMessage.Text);
         }
 
+        private void LogX_Current(object sender, RoutedEventArgs e)
+        {
+            UpdateIndicator(IndicatorState.Active);
+
+            int num = int.Parse(mutlipler.Text.Split(' ')[0]);
+
+            string message = logMessage.Text;
+
+            for (int i = 1; i <= num; i++)
+                DLog.Log(message + " : " + i);
+
+            UpdateIndicator(IndicatorState.Completed);
+        }
+
         private void LogX(object sender, RoutedEventArgs e)
         {
+            UpdateIndicator(IndicatorState.Active);
+
             int num = int.Parse(mutlipler.Text.Split(' ')[0]);
 
             string message = logMessage.Text;
@@ -61,7 +79,35 @@ namespace DebugLogger.Wpf.Sample
             {
                 for (int i = 1; i <= num; i++)
                     DLog.Log(message + " : " + i);
+
+                UpdateIndicator(IndicatorState.Completed);
             });
+        }
+
+        private void UpdateIndicator(IndicatorState state)
+        {
+            Dispatcher.BeginInvoke(() => ChangeIndicator(state), DispatcherPriority.Render);
+        }
+
+        private void ChangeIndicator(IndicatorState state)
+        {
+            switch (state)
+            {
+                case IndicatorState.Inactive:
+                    Indicator.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+                    break;
+
+                case IndicatorState.Active:
+                    Indicator.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 255));
+                    break;
+
+                case IndicatorState.Completed:
+                    Indicator.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0));
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         private readonly Regex numericalRegex = new Regex("[^0-9]"); 
@@ -76,7 +122,11 @@ namespace DebugLogger.Wpf.Sample
             Thread.Sleep(10000);
         }
 
-        
-
+        private enum IndicatorState
+        {
+            Inactive,
+            Active,
+            Completed
+        }
     }
 }
