@@ -19,7 +19,7 @@ namespace DebugLogger.Wpf
 {
     public partial class LoggerWindow : Window
     {
-        private Dictionary<string, LogTab> tabList = new Dictionary<string, LogTab>();
+        private Dictionary<Enum, LogTab> tabList = new Dictionary<Enum, LogTab>();
         private Dictionary<string, LogMessage> logBase = new Dictionary<string, LogMessage>();
         private List<LogMessage> logs = new List<LogMessage>();
 
@@ -68,7 +68,6 @@ namespace DebugLogger.Wpf
                 return lv;
             }
         }
-
 
         #region UI Event
         //Start Region -----------------------------------------------------------------------------------------
@@ -146,12 +145,13 @@ namespace DebugLogger.Wpf
             LogTab tab = new LogTab(tabName);
 
             tab.frame = tabFrame;
+            tab.logPanel = logPanel;
 
             tabFrame.Width = tab.Width;
             tabFrame.Height = tab.Height;
-            tabFrame.Content = tab;
+            tabFrame.Content = tab;          
 
-            tabList.Add(tabName.ToString(), tab);
+            tabList.Add(tabName, tab);
             tabPanel.Items.Add(tabFrame);
         }      
 
@@ -170,6 +170,7 @@ namespace DebugLogger.Wpf
             Dispatcher.BeginInvoke(() => NewLog(logData), DispatcherPriority.Background);
         }
 
+        /*
         private void NewLog(LogData logData)
         {
             if (logBase.ContainsKey(logData.log))
@@ -195,44 +196,16 @@ namespace DebugLogger.Wpf
             }
 
         }
-
-        /*
+        */
+        
         private void NewLog(LogData logData)
-        {/*
-            if(tabList.ContainsKey(logData.LogTypeS))
-            {
-                tabList[logData.LogTypeS].Add(logData);
-            }
+        {
+            if(tabList.ContainsKey(logData.LogType))
+                tabList[logData.LogType].Add(logData);
             else
-            {
-
-            }
-            
-
-
-            if (logBase.ContainsKey(logData.log))
-                logBase[logData.log].logCount++;
-            else
-            {
-                ContentPresenter frame = new ContentPresenter();
-                LogMessage logMessage = new LogMessage(logData);
-
-                //logMessage.frame = frame;
-
-                frame.Width = logMessage.Width = logPanel.ActualWidth;
-                frame.Height = logMessage.Height + 1;
-
-                frame.Content = logMessage;
-
-                logPanel.Items.Add(frame);
-
-                if (autoScroll)
-                    logViewer.ScrollToVerticalOffset(logViewer.ScrollableHeight);
-
-                logBase.Add(logData.log, logMessage);
-            }
+                CreateTab(logData.LogType);
         }
-*/
+
     }
 }
 

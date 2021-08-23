@@ -50,7 +50,7 @@ namespace DebugLogger.Wpf.Sample
 
         private void Log(object sender, RoutedEventArgs e)
         {
-            DLog.Log(logMessage.Text);
+            DLog.Log(logMessage.Text);      
         }
 
         private void LogX_Current(object sender, RoutedEventArgs e)
@@ -128,5 +128,29 @@ namespace DebugLogger.Wpf.Sample
             Active,
             Completed
         }
+
+        /* /// Same Hash Code Finder
+         *    var words = new Dictionary<int, string>();
+
+            int i = 0;
+            string teststring;
+            while (true)
+            {
+                i++;
+                teststring = i.ToString();
+                try
+                {
+                    words.Add(teststring.GetHashCode(), teststring);
+                }
+                catch (Exception)
+                {
+                    break;
+                }
+            }
+
+            var collisionHash = teststring.GetHashCode();
+
+            DLog.Log($"\"{words[collisionHash]}\" and \"{teststring}\" have the same hash code {collisionHash}");
+*/
     }
 }

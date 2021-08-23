@@ -19,7 +19,8 @@ namespace DebugLogger.Wpf
     /// </summary>
     public partial class LogMessage : UserControl
     {
-        public Frame frame { get; set; }
+        public LogData logData { get; set; }
+        public UserControl frame { get; set; }
 
         private int count = 0;
         public int logCount
@@ -45,6 +46,8 @@ namespace DebugLogger.Wpf
         public LogMessage(LogData logData)
         {
             InitializeComponent();
+
+            this.logData = logData;
 
             TextRange timePeriodText = new TextRange(LogBox.Document.ContentStart, LogBox.Document.ContentEnd);
             timePeriodText.Text = logData.latestOccurrence.defaultFormat() + " ";

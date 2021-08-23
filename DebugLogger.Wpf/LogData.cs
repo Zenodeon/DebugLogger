@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -7,10 +8,11 @@ namespace DebugLogger.Wpf
 {
     public class LogData
     {
-        public DefaultLogType LogType { get; private set; }
+        public Enum LogType { get; private set; }
         public string LogTypeS => LogType.ToString(); // Log Type String
 
         public string log { get; private set; }
+        public int logHash => log.GetHashCode();
 
         public List<DateTime> occurrenceTime { get; private set; }
         public DateTime latestOccurrence => occurrenceTime[occurrenceTime.Count - 1];
@@ -24,26 +26,28 @@ namespace DebugLogger.Wpf
             LogType = type;
             this.log = log;
         }
-        /*
+        
         #region Extension
         public static bool operator ==(LogData a, LogData b)
         {
-            return a.log == b.log;
+            return a.logHash == b.logHash;
         }
         public static bool operator !=(LogData a, LogData b)
         {
-            return a.log != b.log;
+            return a.logHash != b.logHash;
         }
 
-        public static bool operator +(LogData a, LogData b)
+        public static LogData operator +(LogData a, LogData b)
         {
-            return a.log != b.log;
+            a.occurrenceTime = a.occurrenceTime.Concat(b.occurrenceTime).ToList();
+
+            return a;
         }
 
         public override bool Equals(object o)
         {
             var b = (LogData)o;
-            return log == b.log;
+            return logHash == b.logHash;
         }
 
         public override int GetHashCode()  //??????????
@@ -51,7 +55,7 @@ namespace DebugLogger.Wpf
             return -1;
         }
         #endregion
-        */
+        
     }
 
     public static class LogDataExtension
