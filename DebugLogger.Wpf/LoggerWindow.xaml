@@ -11,7 +11,6 @@
         Background="Transparent"
         AllowsTransparency="True"
         WindowStartupLocation="Manual" Top="540" Left="1100"
-        SizeChanged="Window_SizeChanged"
         >
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" CornerRadius="8, 8, 8, 8"/>
@@ -80,28 +79,15 @@
             </Style.Triggers>
         </Style>
 
-
-        <Style BasedOn="{StaticResource {x:Type Button}}"
-               TargetType="Button"
-               x:Key="ScrollToEndBtn">
-            <Setter Property="Background" Value="#3A3A3D"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}" BorderThickness="0" CornerRadius="8, 8, 8, 8">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#75757d"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
     </Window.Resources>
+    <Window.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform/>
+            <SkewTransform/>
+            <RotateTransform Angle="0"/>
+            <TranslateTransform/>
+        </TransformGroup>
+    </Window.RenderTransform>
 
     <Border CornerRadius="8, 8, 8, 8" Background="#2d2d30">
         <Grid>
@@ -154,7 +140,7 @@
                 <Button Content="ClearAll" Style="{StaticResource CtmBtn}" Grid.Column="1" Foreground="White" BorderThickness="0" Click="Button_Click"/>
 
             </Grid>
-            
+
             <!-- Tab List -->
             <ItemsControl Grid.Row="1" Name="tabPanel" ItemsSource="{Binding AccountViews.Tables[0]}" PreviewMouseWheel="TabList_PreviewMouseWheel" FlowDirection="RightToLeft">
                 <ItemsControl.ItemsPanel>
@@ -174,25 +160,8 @@
                 </ItemsControl.Template>
             </ItemsControl>
 
-            <!-- Log List -->
-            <ItemsControl Grid.Row="2" Name="logPanel" ItemsSource="{Binding AccountViews.Tables[0]}" PreviewMouseWheel="LogList_PreviewMouseWheel">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel IsVirtualizing="True"
-                              VirtualizationMode="Recycling" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+            <local:LogPanel Grid.Row="2" x:Name="logPanel" Width="Auto" Height="Auto"/>
 
-                <ItemsControl.Template>
-                    <ControlTemplate TargetType="ItemsControl">
-                        <ScrollViewer x:Name="logViewer" Background="#1c1c1c" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
-                            <ItemsPresenter/>
-                        </ScrollViewer>
-                    </ControlTemplate>
-                </ItemsControl.Template>
-            </ItemsControl>
-
-            <Button Grid.Row="2" Name="SEBtn" Style="{StaticResource ScrollToEndBtn}" Height="30" Width="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 55, 15" Visibility="Collapsed" Click="ScrollToEnd"/>
         </Grid>
     </Border>
 </Window>

@@ -37,7 +37,6 @@ namespace DebugLogger.Wpf
             }
         }
 
-
         public LogMessage()
         {
             InitializeComponent();
