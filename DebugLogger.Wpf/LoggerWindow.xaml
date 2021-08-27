@@ -141,24 +141,7 @@
 
             </Grid>
 
-            <!-- Tab List -->
-            <ItemsControl Grid.Row="1" Name="tabPanel" ItemsSource="{Binding AccountViews.Tables[0]}" PreviewMouseWheel="TabList_PreviewMouseWheel" FlowDirection="RightToLeft">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel IsVirtualizing="True"
-                                            VirtualizationMode="Recycling" 
-                                            Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-
-                <ItemsControl.Template>
-                    <ControlTemplate TargetType="ItemsControl">
-                        <ScrollViewer x:Name="tabViewer" Background="#1c1c1c" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden">
-                            <ItemsPresenter/>
-                        </ScrollViewer>
-                    </ControlTemplate>
-                </ItemsControl.Template>
-            </ItemsControl>
+            <local:TabPanel Grid.Row="1" x:Name="tabPanel" Width="Auto" Height="Auto"/>
 
             <local:LogPanel Grid.Row="2" x:Name="logPanel" Width="Auto" Height="Auto"/>
 

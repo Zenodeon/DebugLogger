@@ -18,87 +18,20 @@ using System.Threading.Tasks;
 namespace DebugLogger.Wpf
 {
     public partial class LoggerWindow : Window
-    {
-        private Dictionary<Enum, LogTab> tabList = new Dictionary<Enum, LogTab>();
-        
+    {  
         private List<LogMessage> logs = new List<LogMessage>();
-
-        private ScrollViewer tv;
-        private ScrollViewer tabViewer
-        {
-            get
-            {
-                if (tv == null)
-                    tv = (ScrollViewer)tabPanel.Template.FindName("tabViewer", tabPanel);
-
-                return tv;
-            }
-        }
-
-        #region UI Event
-        //Start Region -----------------------------------------------------------------------------------------
-        //Start Region -----------------------------------------------------------------------------------------
-        //Start Region -----------------------------------------------------------------------------------------
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            logPanel.ClearLogs();
-        }
-
-        private void ToggleAutoScroll(object sender, RoutedEventArgs e)
-        {
-            logPanel.autoScroll = !logPanel.autoScroll;
-        }
-
-        private void TabList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            tabViewer.ScrollToHorizontalOffset(tabViewer.HorizontalOffset - (e.Delta / 5));
-            e.Handled = true;
-        }
-
-        private void Bar_Mouse(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
-
-        public void CloseWindow()
-        {
-            Dispatcher.BeginInvoke(() => Close(), DispatcherPriority.Background);
-        }
-
-        private void CloseWindow(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        //End Region -----------------------------------------------------------------------------------------
-        //End Region -----------------------------------------------------------------------------------------
-        //End Region -----------------------------------------------------------------------------------------
-        #endregion
 
         public LoggerWindow()
         {
             InitializeComponent();
 
-            foreach (DefaultLogType type in (DefaultLogType[])Enum.GetValues(typeof(DefaultLogType)))
-                CreateTab(type);
+            tabPanel.logPanel = logPanel;
+            logPanel.tabPanel = tabPanel;
+
+            foreach (DefaultLogType name in (DefaultLogType[])Enum.GetValues(typeof(DefaultLogType)))
+                tabPanel.CreateTab(name);
         }
 
-        private void CreateTab(Enum tabName)
-        {
-            ContentPresenter tabFrame = new ContentPresenter();
-            LogTab tab = new LogTab(tabName);
-
-            tab.frame = tabFrame;
-            //tab.logPanel = logPanel;
-
-            tabFrame.Width = tab.Width;
-            tabFrame.Height = tab.Height;
-            tabFrame.Content = tab;          
-
-            tabList.Add(tabName, tab);
-            tabPanel.Items.Add(tabFrame);
-        }      
         /*
         public void ReportLog(LogData logData)
         {
@@ -120,6 +53,34 @@ namespace DebugLogger.Wpf
                 CreateTab(logData.LogType);
         }*/
 
+        #region UI Event
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            logPanel.ClearLogs();
+        }
+
+        private void ToggleAutoScroll(object sender, RoutedEventArgs e)
+        {
+            logPanel.autoScroll = !logPanel.autoScroll;
+        }
+
+        private void Bar_Mouse(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        public void CloseWindow()
+        {
+            Dispatcher.BeginInvoke(() => Close(), DispatcherPriority.Background);
+        }
+
+        private void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        #endregion
     }
 }
 

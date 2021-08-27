@@ -18,11 +18,14 @@ namespace DebugLogger.Wpf
     /// </summary>
     public partial class LogPanel : UserControl
     {
+        public TabPanel tabPanel { get; set; }
+
         private ScrollViewer logViewer { get; set; }
 
         private Dictionary<string, LogMessage> activeLog = new Dictionary<string, LogMessage>();
 
         private bool atSll = true;
+
         public bool autoScroll
         {
             get { return atSll; }
@@ -79,24 +82,32 @@ namespace DebugLogger.Wpf
                 activeLog[logData.log].logCount++;
             else
             {
-                ContentPresenter frame = new ContentPresenter();
-                LogMessage logMessage = new LogMessage(logData);
+                LogMessage logM = CreateLogMessage(logData);
 
-                //logMessage.frame = frame;
 
-                frame.Width = logMessage.Width = double.NaN;
-                frame.Height = logMessage.Height + 1;
 
-                frame.Content = logMessage;
-
-                logsControl.Items.Add(frame);
+                logsControl.Items.Add(logM.frame);
 
                 if (autoScroll)
                     logViewer.ScrollToVerticalOffset(logViewer.ScrollableHeight);
 
-                activeLog.Add(logData.log, logMessage);
+                activeLog.Add(logData.log, logM);
             }
+        }
 
+        private LogMessage CreateLogMessage(LogData logData)
+        {
+            ContentPresenter frame = new ContentPresenter();
+            LogMessage log = new LogMessage(logData);
+
+            log.frame = frame;
+
+            frame.Width = log.Width = double.NaN;
+            frame.Height = log.Height + 1;
+
+            frame.Content = log;
+
+            return log;
         }
     }
 }

@@ -19,8 +19,9 @@ namespace DebugLogger.Wpf
     /// </summary>
     public partial class LogMessage : UserControl
     {
+        public ContentPresenter frame { get; set; }
+
         public LogData logData { get; set; }
-        public UserControl frame { get; set; }
 
         private int count = 0;
         public int logCount
@@ -46,6 +47,13 @@ namespace DebugLogger.Wpf
         {
             InitializeComponent();
 
+            ShowLog(logData);
+
+            logCount = 1;
+        }
+
+        public void ShowLog(LogData logData)
+        {
             this.logData = logData;
 
             TextRange timePeriodText = new TextRange(LogBox.Document.ContentStart, LogBox.Document.ContentEnd);
@@ -55,8 +63,6 @@ namespace DebugLogger.Wpf
             TextRange logText = new TextRange(LogBox.Document.ContentEnd, LogBox.Document.ContentEnd);
             logText.Text = logData.log;
             logText.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)));
-
-            logCount = 1;
         }
     }
 }

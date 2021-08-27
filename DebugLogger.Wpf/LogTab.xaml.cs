@@ -16,10 +16,10 @@ namespace DebugLogger.Wpf
 {
     public partial class LogTab : UserControl
     {
-        public ItemsControl logPanel { get; set; }
+        public LogPanel logPanel { get; set; }
         public ContentPresenter frame { get; set; }
 
-        private Dictionary<int, LogData> logs = new Dictionary<int, LogData>();
+        private Dictionary<int, LogMessage> logs = new Dictionary<int, LogMessage>();
 
         public LogTab()
         {
@@ -91,15 +91,15 @@ namespace DebugLogger.Wpf
             DLog.Log(e.ButtonState.ToString());
         }
 
-        public void Add(LogData logData)
+        public void AddLogMessage(LogMessage logM)
         {
-            if (logs.ContainsKey(logData.logHash))
+            if (logs.ContainsKey(logM.logData.logHash))
             {
-                logs[logData.logHash] += logData;
+                //logs[logData.logHash] += logData;
             }
             else
             {
-                logs.Add(logData.logHash, logData);
+                //logs.Add(logData.logHash, logData);
             }
         }
     }    
