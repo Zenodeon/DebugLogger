@@ -13,26 +13,36 @@ namespace DebugLogger.Wpf
         private static bool instantiated = false;
         private static LoggerWindow logWindow;
 
-        public static void Instantiate()
+        private static ManualResetEvent signal = new ManualResetEvent(false);
+
+        public static bool Instantiate()
         {
-            if (!instantiated)
+            if (instantiated)
+                return true;
+
+            Thread logThread = new Thread(new ThreadStart(() =>
             {
-                Thread logThread = new Thread(new ThreadStart(() =>
-                {
-                    LoggerWindow loggerWindow = new LoggerWindow();
+                LoggerWindow loggerWindow = new LoggerWindow();
+                loggerWindow.Show();
 
-                    logWindow = loggerWindow;
-                    logWindow.Show();
+                Dispatcher.Run();
+            }));
 
-                    Dispatcher.Run(); 
-                }));
+            logThread.SetApartmentState(ApartmentState.STA);
+            logThread.IsBackground = false;
+            logThread.Start();
 
-                logThread.SetApartmentState(ApartmentState.STA);
-                logThread.IsBackground = true;
-                logThread.Start();
+            instantiated = true;
 
-                instantiated = true;
-            }
+            signal.WaitOne();
+
+            return true;
+        }
+
+        public static void LoggerWindowInstantiated(LoggerWindow loggerWindow)
+        {
+            logWindow = loggerWindow;
+            signal.Set();
         }
 
         public static void Close()
@@ -53,7 +63,7 @@ namespace DebugLogger.Wpf
                 logWindow.ReportLog(new LogData(DefaultLogType.Warning, log));
         }
 
-        public static void Error(string log)
+        public static void Alert(string log)
         {
             if (logWindow != null)
                 logWindow.ReportLog(new LogData(DefaultLogType.Error, log));

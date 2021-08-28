@@ -19,7 +19,24 @@ namespace DebugLogger.Wpf
         public LogPanel logPanel { get; set; }
         public ContentPresenter frame { get; set; }
 
-        private Dictionary<int, LogMessage> logs = new Dictionary<int, LogMessage>();
+        //private Dictionary<int, LogMessage> logs = new Dictionary<int, LogMessage>();
+
+        private List<LogMessage> logs = new List<LogMessage>();
+
+        private int count = 0;
+        private int logCount
+        {
+            get
+            {
+                return count;
+            }
+            set
+            {
+                count = value;
+
+                Count.Content = value;
+            }
+        }
 
         public LogTab()
         {
@@ -88,19 +105,13 @@ namespace DebugLogger.Wpf
         }
         private void Tab_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            DLog.Log(e.ButtonState.ToString());
+            //DLog.Log(e.ButtonState.ToString());
         }
 
         public void AddLogMessage(LogMessage logM)
         {
-            if (logs.ContainsKey(logM.logData.logHash))
-            {
-                //logs[logData.logHash] += logData;
-            }
-            else
-            {
-                //logs.Add(logData.logHash, logData);
-            }
+            logs.Add(logM);
+            logCount++;
         }
     }    
 }

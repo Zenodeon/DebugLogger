@@ -26,9 +26,10 @@ namespace DebugLogger.Wpf.Sample
     {
         public MainWindow()
         {
+            InitializeComponent();
+
             DLog.Instantiate();
 
-            InitializeComponent();
             ChangeIndicator(IndicatorState.Inactive);
 
             DLog.Log("Sample Project Running : Type 1");
@@ -53,18 +54,14 @@ namespace DebugLogger.Wpf.Sample
             DLog.Log(logMessage.Text);      
         }
 
-        private void LogX_Current(object sender, RoutedEventArgs e)
+        private void Warn(object sender, RoutedEventArgs e)
         {
-            UpdateIndicator(IndicatorState.Active);
+            DLog.Warn(logMessage.Text);
+        }
 
-            int num = int.Parse(mutlipler.Text.Split(' ')[0]);
-
-            string message = logMessage.Text;
-
-            for (int i = 1; i <= num; i++)
-                DLog.Log(message + " : " + i);
-
-            UpdateIndicator(IndicatorState.Completed);
+        private void Alert(object sender, RoutedEventArgs e)
+        {
+            DLog.Alert(logMessage.Text);
         }
 
         private void LogX(object sender, RoutedEventArgs e)
@@ -78,7 +75,10 @@ namespace DebugLogger.Wpf.Sample
             Task.Run(() =>
             {
                 for (int i = 1; i <= num; i++)
+                {
+                    Thread.Sleep(10); //Load
                     DLog.Log(message + " : " + i);
+                }
 
                 UpdateIndicator(IndicatorState.Completed);
             });
@@ -86,7 +86,10 @@ namespace DebugLogger.Wpf.Sample
 
         private void UpdateIndicator(IndicatorState state)
         {
-            Dispatcher.BeginInvoke(() => ChangeIndicator(state), DispatcherPriority.Render);
+            if (Dispatcher.CheckAccess())
+                ChangeIndicator(state);
+            else
+                Dispatcher.Invoke(() => ChangeIndicator(state));
         }
 
         private void ChangeIndicator(IndicatorState state)

@@ -6,16 +6,77 @@
         xmlns:local="clr-namespace:DebugLogger.Wpf.Sample"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        Background="#202020"
+        Background="#1c1c1c"
         Closing="OnClosingWindow">
+    <Window.Resources>
+        <Style BasedOn="{StaticResource {x:Type Button}}"
+               TargetType="Button"
+               x:Key="LogBtn">
+            <Setter Property="Background" Value="#2d2d30"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0" CornerRadius="8, 8, 8, 8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#3A3A3D"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style BasedOn="{StaticResource {x:Type Button}}"
+               TargetType="Button"
+               x:Key="WarnBtn">
+            <Setter Property="Background" Value="#2d2d30"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0" CornerRadius="8, 8, 8, 8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#404000"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style BasedOn="{StaticResource {x:Type Button}}"
+               TargetType="Button"
+               x:Key="ErrorBtn">
+            <Setter Property="Background" Value="#2d2d30"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0" CornerRadius="8, 8, 8, 8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#400000"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="1.65*"/>
-            <RowDefinition Height="0.35*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="2">
@@ -25,30 +86,28 @@
                 <ColumnDefinition Width="250"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Row="2" Grid.Column="1" x:Name="logMessage" Foreground="White" Background="Black" BorderBrush="#303030" HorizontalAlignment="Stretch" TextAlignment="Center" Text="log" TextWrapping="Wrap" VerticalAlignment="Stretch" />
+            <TextBox Grid.Row="2" Grid.Column="1" x:Name="logMessage" Foreground="White" Background="#1c1c1c" BorderThickness="0" HorizontalAlignment="Stretch" TextAlignment="Center" Text="log" TextWrapping="Wrap" VerticalAlignment="Stretch" />
 
         </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.33*"/>
+                <ColumnDefinition Width="0.33*"/>
+                <ColumnDefinition Width="0.33*"/>
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="0.25*"/>
                 <ColumnDefinition Width="0.25*"/>
                 <ColumnDefinition Width="250"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Row="3" Grid.Column="1" Content = "Log" HorizontalAlignment="Stretch" Foreground="White" Background="#303030" BorderBrush="#303030" VerticalAlignment="Stretch" Click="Log"/>
+            <Button Grid.Row="3" Grid.Column="1" Content="Log" Style="{StaticResource LogBtn}" Foreground="White" BorderThickness="0" Click="Log"/>
+            <Button Grid.Row="3" Grid.Column="2" Content="Log" Style="{StaticResource WarnBtn}" Foreground="Yellow" BorderThickness="0" Click="Warn"/>
+            <Button Grid.Row="3" Grid.Column="3" Content="Log" Style="{StaticResource ErrorBtn}" Foreground="Red" BorderThickness="0" Click="Alert"/>
 
-            <Button Grid.Row="3" Grid.Column="2" Content = "[Log x]" HorizontalAlignment="Stretch" Foreground="White" Background="#303030" BorderBrush="#303030" VerticalAlignment="Stretch" Click="LogX_Current"/>
-            <Button Grid.Row="3" Grid.Column="3" Content = "(Log x)" HorizontalAlignment="Stretch" Foreground="White" Background="#303030" BorderBrush="#303030" VerticalAlignment="Stretch" Click="LogX"/>
-            <TextBox Grid.Row="3" Grid.Column="4" x:Name="mutlipler" PreviewTextInput="mutlipler_PreviewTextInput" Foreground="White" Background="Black" BorderBrush="#303030" HorizontalAlignment="Stretch" TextAlignment="Center" Text="10" TextWrapping="Wrap" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Rectangle Grid.Row="3" Grid.Column="5" x:Name="Indicator" Fill="Red" />
+            <Button Grid.Row="3" Grid.Column="4" Content = "(Log x)" Style="{StaticResource LogBtn}" Foreground="White" BorderThickness="0" Click="LogX"/>
+            <TextBox Grid.Row="3" Grid.Column="5" x:Name="mutlipler" PreviewTextInput="mutlipler_PreviewTextInput" Foreground="White" Background="#1c1c1c" BorderThickness="0" HorizontalAlignment="Stretch" TextAlignment="Center" Text="10" TextWrapping="Wrap" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Rectangle Grid.Row="3" Grid.Column="6" x:Name="Indicator" Fill="Red" RadiusX="8" RadiusY="8" />
         </Grid>
-
-        <Button Grid.Row="5" Content = "LagTest" HorizontalAlignment="Stretch" Foreground="White" Background="#303030" BorderBrush="#303030" VerticalAlignment="Stretch" Click="Lag"/>
-
-
     </Grid>
 </Window>

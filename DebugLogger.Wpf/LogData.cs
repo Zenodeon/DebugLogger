@@ -8,8 +8,8 @@ namespace DebugLogger.Wpf
 {
     public class LogData
     {
-        public Enum LogType { get; private set; }
-        public string LogTypeS => LogType.ToString(); // Log Type String
+        public Enum logType { get; private set; }
+        public string logTypeS => logType.ToString(); // Log Type String
 
         public string log { get; private set; }
         public int logHash => log.GetHashCode();
@@ -23,7 +23,7 @@ namespace DebugLogger.Wpf
         {
             occurrenceTime = new List<DateTime> { DateTime.Now };
 
-            LogType = type;
+            logType = type;
             this.log = log;
         }
         
@@ -54,8 +54,7 @@ namespace DebugLogger.Wpf
         {
             return -1;
         }
-        #endregion
-        
+        #endregion      
     }
 
     public static class LogDataExtension
@@ -72,5 +71,5 @@ namespace DebugLogger.Wpf
         Master,
         Warning,
         Error
-    }
+    } 
 }

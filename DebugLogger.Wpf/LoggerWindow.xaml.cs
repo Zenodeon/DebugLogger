@@ -25,6 +25,8 @@ namespace DebugLogger.Wpf
         {
             InitializeComponent();
 
+            DLog.LoggerWindowInstantiated(this);
+
             tabPanel.logPanel = logPanel;
             logPanel.tabPanel = tabPanel;
 
@@ -40,9 +42,8 @@ namespace DebugLogger.Wpf
 
         public void ReportLog(LogData logData)
         {
-            Dispatcher.BeginInvoke(() => logPanel.DisplayLog(logData), DispatcherPriority.Background);
+            Dispatcher.BeginInvoke(() => logPanel.DisplayLog(logData), DispatcherPriority.Normal);
         }
-
 
         /*
         private void NewLog(LogData logData)

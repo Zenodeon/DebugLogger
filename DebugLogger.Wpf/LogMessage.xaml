@@ -8,7 +8,7 @@
       Height="45" Width="500"   
       FlowDirection="LeftToRight"           
       >
-    <Border CornerRadius="8" Background="#2d2d30">
+    <Border CornerRadius="8" x:Name="Border" Background="#2D2D30">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10" />
@@ -19,7 +19,7 @@
 
        
         <Label Grid.Column="2" Content="0" Name="Count" Foreground="White" FontSize="13" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <RichTextBox Grid.Column="1" Name="LogBox" Foreground="#FF646464" Background="#2d2d30" FontSize="13" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderThickness="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" IsReadOnly="False">
+            <RichTextBox Grid.Column="1" Name="LogBox" Foreground="#646464" Background="Transparent" FontSize="13" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderThickness="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" IsReadOnly="False">
             <FlowDocument>
                 <Paragraph>
                     <Run Name="LogText" Text="Log Message"/>

@@ -22,7 +22,7 @@ namespace DebugLogger.Wpf
 
         private ScrollViewer tabViewer { get; set; }
 
-        private Dictionary<Enum, LogTab> tabList = new Dictionary<Enum, LogTab>();
+        public Dictionary<Enum, LogTab> tabs = new Dictionary<Enum, LogTab>();
 
         public TabPanel()
         {
@@ -44,7 +44,7 @@ namespace DebugLogger.Wpf
             tabFrame.Height = tab.Height;
             tabFrame.Content = tab;
 
-            tabList.Add(tabName, tab);
+            tabs.Add(tabName, tab);
             tabsControl.Items.Add(tabFrame);
         }
 

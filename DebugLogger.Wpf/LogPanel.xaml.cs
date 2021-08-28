@@ -76,6 +76,7 @@ namespace DebugLogger.Wpf
             activeLog.Clear();
         }
 
+        /*
         public void DisplayLog(LogData logData)
         {
             if (activeLog.ContainsKey(logData.log))
@@ -84,8 +85,6 @@ namespace DebugLogger.Wpf
             {
                 LogMessage logM = CreateLogMessage(logData);
 
-
-
                 logsControl.Items.Add(logM.frame);
 
                 if (autoScroll)
@@ -93,6 +92,18 @@ namespace DebugLogger.Wpf
 
                 activeLog.Add(logData.log, logM);
             }
+        }*/
+
+        public void DisplayLog(LogData logData)
+        {
+            LogMessage logM = CreateLogMessage(logData);
+
+            logsControl.Items.Add(logM.frame);
+
+            if (autoScroll)
+                logViewer.ScrollToVerticalOffset(logViewer.ScrollableHeight);
+
+            tabPanel.tabs[logData.logType].AddLogMessage(logM);
         }
 
         private LogMessage CreateLogMessage(LogData logData)
