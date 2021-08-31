@@ -18,6 +18,7 @@ namespace DebugLogger.Wpf
     /// </summary>
     public partial class LogPanel : UserControl
     {
+        public LoggerWindow loggerWindow { get; set; }
         public TabPanel tabPanel { get; set; }
 
         private ScrollViewer logViewer { get; set; }
@@ -29,20 +30,13 @@ namespace DebugLogger.Wpf
         public bool autoScroll
         {
             get { return atSll; }
-            set
+            private set
             {
                 atSll = value;
 
-                if (value)
-                {
-                    //Resources["ToggleCurrent"] = Resources["ToggleOn"];
-                    SEBtn.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    //Resources["ToggleCurrent"] = Resources["ToggleOff"];
-                    SEBtn.Visibility = Visibility.Visible;
-                }
+                SEBtn.Visibility = value ? Visibility.Collapsed : Visibility.Visible;
+
+                loggerWindow.ToggleAutoScrollButton(value);
             }
         }
 
@@ -119,6 +113,11 @@ namespace DebugLogger.Wpf
             frame.Content = log;
 
             return log;
+        }
+
+        public bool ToggleAutoScroll()
+        {
+            return autoScroll = !autoScroll;
         }
     }
 }

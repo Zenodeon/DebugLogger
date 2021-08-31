@@ -29,7 +29,7 @@ namespace DebugLogger.Wpf
             }));
 
             logThread.SetApartmentState(ApartmentState.STA);
-            logThread.IsBackground = false;
+            logThread.IsBackground = true;
             logThread.Start();
 
             instantiated = true;

@@ -5,31 +5,78 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DebugLogger.Wpf"
       mc:Ignorable="d"
-      Height="35" Width="90"
+      Height="30" Width="80" 
       PreviewMouseDown="Tab_PreviewMouseDown"
       PreviewMouseUp="Tab_PreviewMouseUp"
       FlowDirection="LeftToRight"
       >
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="ToggleOn" Color="#2d2d30" />
+        <SolidColorBrush x:Key="ToggleOff" Color="#3A3A3D" />
+        <SolidColorBrush x:Key="ToggleCurrent" Color="#2d2d30"/>
 
-    <Border  CornerRadius="8, 8, 8, 8 " Background="#2d2d30">
+        <Style BasedOn="{StaticResource {x:Type Button}}"
+               TargetType="Button"
+               x:Key="TabToggleBtn">
+            <Setter Property="Background" Value="{DynamicResource ToggleCurrent}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0" CornerRadius="0, 0, 8, 8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Border CornerRadius="8, 8, 8, 8 " Background="#2d2d30">
         <Grid Name="mainGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="10" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="3" Content="0" Name="Count" Foreground="White" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0"/>
+            <Label Grid.Column="3" Content="0" Name="Count" Foreground="White" FontSize="13" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0"/>
 
-            <RichTextBox Grid.Column="1" Name="tabBox" Foreground="White" Background="Transparent" BorderThickness="0" Margin="0" Padding="0" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="13" AcceptsReturn="False" AutoWordSelection="False" IsUndoEnabled="False" Focusable="False" Cursor="Arrow">
-                <FlowDocument local:FlowDocumentPagePadding.PagePadding="0">
-                    <Paragraph>
+            <RichTextBox Grid.Column="1" Name="tabBox" Foreground="White" Background="Transparent" BorderThickness="0" Margin="0" Padding="0" IsReadOnly="True" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" FontSize="13" AcceptsReturn="False" AutoWordSelection="False" IsUndoEnabled="False" Focusable="False" Cursor="Arrow" MinWidth="0">
+                <FlowDocument local:FlowDocumentPagePadding.PagePadding="0" TextAlignment="Center">
+                    <Paragraph Margin="0,0,0,0">
                         <Run Name="tabText" Text="Tab" FontSize="13"/>
                     </Paragraph>
                 </FlowDocument>
             </RichTextBox>
+
+            <Rectangle x:Name="TabActiveShade" Grid.ColumnSpan="{Binding ColumnDefinitions.Count, ElementName=mainGrid}" Fill="Black" Opacity="0" RadiusX="8" RadiusY="8" IsHitTestVisible="False"/>
+
+            <Button Grid.ColumnSpan="{Binding ColumnDefinitions.Count, ElementName=mainGrid}" BorderThickness="0" 
+                    Click="Tab_Click">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Name="Tab_Border" Background="Transparent" BorderBrush="Transparent" BorderThickness="1.5" CornerRadius="8, 8, 8, 8">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Tab_Border" Property="BorderBrush" Value="#2C7DBF" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
     </Border>
 </UserControl>

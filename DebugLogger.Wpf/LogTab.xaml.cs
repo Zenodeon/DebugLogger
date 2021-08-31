@@ -19,6 +19,19 @@ namespace DebugLogger.Wpf
         public LogPanel logPanel { get; set; }
         public ContentPresenter frame { get; set; }
 
+        private bool _active = true;
+
+        public bool active
+        {
+            get { return _active; }
+            set
+            {
+                _active = value;
+
+                TabActiveShade.Opacity = value ? 0 : 0.5;                 
+            }
+        }
+
         //private Dictionary<int, LogMessage> logs = new Dictionary<int, LogMessage>();
 
         private List<LogMessage> logs = new List<LogMessage>();
@@ -112,6 +125,11 @@ namespace DebugLogger.Wpf
         {
             logs.Add(logM);
             logCount++;
+        }
+
+        private void Tab_Click(object sender, RoutedEventArgs e)
+        {
+            active = !active;
         }
     }    
 }

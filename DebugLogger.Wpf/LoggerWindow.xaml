@@ -75,25 +75,19 @@
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
-
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2C7DBF"/>
+                </Trigger>
             </Style.Triggers>
         </Style>
 
     </Window.Resources>
-    <Window.RenderTransform>
-        <TransformGroup>
-            <ScaleTransform/>
-            <SkewTransform/>
-            <RotateTransform Angle="0"/>
-            <TranslateTransform/>
-        </TransformGroup>
-    </Window.RenderTransform>
 
     <Border CornerRadius="8, 8, 8, 8" Background="#2d2d30">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="20" />
-                <RowDefinition Height="35"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="35"/>
             </Grid.RowDefinitions>
@@ -113,23 +107,19 @@
                 <Rectangle Grid.Column="0" Fill="Transparent" MouseDown="Bar_Mouse"/>
 
                 <Rectangle Grid.Column="1" Fill="{DynamicResource ToggleCurrent}"/>
-                <Rectangle Grid.Column="3" Fill="{DynamicResource ToggleCurrent}"/>
-
                 <Border Grid.Column="1" BorderThickness="0" Background="#2d2d30" CornerRadius="0, 8, 0, 0"/>
+                
+                <Button Grid.Column="2" Style="{DynamicResource AutoScrollToggleBtn}" Name="TAC" Click="ToggleAutoScroll"/>
+                
+                <Rectangle Grid.Column="3" Fill="{DynamicResource ToggleCurrent}"/>
                 <Border Grid.Column="3" BorderThickness="0" Background="#2d2d30" CornerRadius="8, 0, 0, 0"/>
 
-
-
-                <Button Grid.Column="2" Style="{DynamicResource AutoScrollToggleBtn}" Name="TAC" Click="ToggleAutoScroll"/>
 
                 <Button Grid.Column="4" Style="{StaticResource CtmBtn}"/>
                 <Button Grid.Column="5" Style="{StaticResource CtmBtn}"/>
                 <Button Grid.Column="6" Style="{StaticResource CloseBtn}" Click="CloseWindow"/>
-
-
             </Grid>
-
-
+            
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>

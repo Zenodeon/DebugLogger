@@ -84,9 +84,7 @@ namespace DebugLogger.Wpf
                 default:
                     return new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)); //White
             }
-        }
-
-       
+        }       
     }
 
     public static class TempExtentsion

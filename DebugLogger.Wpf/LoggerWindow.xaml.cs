@@ -28,6 +28,8 @@ namespace DebugLogger.Wpf
             DLog.LoggerWindowInstantiated(this);
 
             tabPanel.logPanel = logPanel;
+
+            logPanel.loggerWindow = this;
             logPanel.tabPanel = tabPanel;
 
             foreach (DefaultLogType name in (DefaultLogType[])Enum.GetValues(typeof(DefaultLogType)))
@@ -63,7 +65,7 @@ namespace DebugLogger.Wpf
 
         private void ToggleAutoScroll(object sender, RoutedEventArgs e)
         {
-            logPanel.autoScroll = !logPanel.autoScroll;
+            logPanel.ToggleAutoScroll();
         }
 
         private void Bar_Mouse(object sender, MouseButtonEventArgs e)
@@ -82,6 +84,11 @@ namespace DebugLogger.Wpf
         }
 
         #endregion
+
+        public void ToggleAutoScrollButton(bool active)
+        {
+            Resources["ToggleCurrent"] = active ? Resources["ToggleOn"] : Resources["ToggleOff"];
+        }
     }
 }
 
