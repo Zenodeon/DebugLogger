@@ -65,11 +65,4 @@ namespace DebugLogger.Wpf
         }
 
     }
-
-    public enum DefaultLogType
-    {
-        Master,
-        Warning,
-        Error
-    } 
 }

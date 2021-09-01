@@ -60,43 +60,18 @@ namespace DebugLogger.Wpf
             timePeriodText.Text = logData.latestOccurrence.defaultFormat() + " ";
             timePeriodText.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Color.FromArgb(255, 100, 100, 100)));
 
-            TextRange logText = new TextRange(LogBox.Document.ContentEnd, LogBox.Document.ContentEnd);
-            logText.Text = logData.log;
-            logText.ApplyPropertyValue(TextElement.ForegroundProperty, GetLogColor(logData.logType));
+            SolidColorBrush messageColor = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
 
             if (logData.logTypeS != DefaultLogType.Master.ToString())
-                Border.Background = GetLogColor(logData.logType).Brightness(25);
-        }
-
-        private SolidColorBrush GetLogColor(Enum type)
-        {
-            switch (type)
             {
-                case DefaultLogType.Master:
-                    return new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)); //White
-
-                case DefaultLogType.Warning:
-                    return new SolidColorBrush(Color.FromArgb(255, 255, 255, 0)); //Yellow
-
-                case DefaultLogType.Error:
-                    return new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)); //Red
-
-                default:
-                    return new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)); //White
+                messageColor = DefaultLogStructure.GetDefaultLogColor(logData.logType);
+                Border.Background = DefaultLogStructure.GetDefaultLogColor(logData.logType, 25);
             }
-        }       
-    }
 
-    public static class TempExtentsion
-    {
-        public static SolidColorBrush Brightness(this SolidColorBrush brush, double percentage)
-        {
-            percentage = Math.Clamp(percentage, 0, 100) / 100;
-            byte r = (byte)(int)(brush.Color.R * percentage);
-            byte g = (byte)(int)(brush.Color.G * percentage);
-            byte b = (byte)(int)(brush.Color.B * percentage);
+            TextRange logText = new TextRange(LogBox.Document.ContentEnd, LogBox.Document.ContentEnd);
+            logText.Text = logData.log;
+            logText.ApplyPropertyValue(TextElement.ForegroundProperty, messageColor);
 
-            return new SolidColorBrush(Color.FromArgb(brush.Color.A, r, g, b));
-        }
+        }  
     }
 }

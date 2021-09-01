@@ -6,8 +6,6 @@
       xmlns:local="clr-namespace:DebugLogger.Wpf"
       mc:Ignorable="d"
       Height="30" Width="80" 
-      PreviewMouseDown="Tab_PreviewMouseDown"
-      PreviewMouseUp="Tab_PreviewMouseUp"
       FlowDirection="LeftToRight"
       >
     <UserControl.Resources>
@@ -33,7 +31,7 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <Border CornerRadius="8, 8, 8, 8 " Background="#2d2d30">
+    <Border Name="TabBackground" CornerRadius="8, 8, 8, 8 " Background="#2d2d30">
         <Grid Name="mainGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10" />
@@ -63,12 +61,12 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Name="Tab_Border" Background="Transparent" BorderBrush="Transparent" BorderThickness="1.5" CornerRadius="8, 8, 8, 8">
+                                    <Border Name="TabBorder" Background="Transparent" BorderBrush="Transparent" BorderThickness="1.5" CornerRadius="8, 8, 8, 8">
                                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="Tab_Border" Property="BorderBrush" Value="#2C7DBF" />
+                                            <Setter TargetName="TabBorder" Property="BorderBrush" Value="#2C7DBF" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>

@@ -19,6 +19,8 @@ namespace DebugLogger.Wpf
         public LogPanel logPanel { get; set; }
         public ContentPresenter frame { get; set; }
 
+        public Enum type;
+
         private bool _active = true;
 
         public bool active
@@ -58,6 +60,8 @@ namespace DebugLogger.Wpf
 
         public LogTab(Enum tabName)
         {
+            type = tabName;
+
             InitializeTab(tabName.ToString());
         }
 
@@ -70,12 +74,13 @@ namespace DebugLogger.Wpf
         {
             InitializeComponent();
 
-            bool isMaster = tabName == DefaultLogType.Master.ToString();
+            //bool isDefault = tabName == DefaultLogType.Master.ToString() | tabName == DefaultLogType.Warning.ToString() | tabName == DefaultLogType.Error.ToString();
+            bool isDefault = tabName == DefaultLogType.Master.ToString();
 
-            if (isMaster)
+            if (isDefault)
             {
                 tabName = "";
-                mainGrid.ColumnDefinitions[2].Width = new GridLength(0, GridUnitType.Pixel);
+                mainGrid.ColumnDefinitions[2].Width = new GridLength(0, GridUnitType.Pixel);              
             }
 
             tabText.Text = tabName;
@@ -109,16 +114,6 @@ namespace DebugLogger.Wpf
                     width += mainGrid.ColumnDefinitions[i].Width.Value;
 
             return width;
-        }
-
-
-        private void Tab_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            //DLog.Log(e.);
-        }
-        private void Tab_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            //DLog.Log(e.ButtonState.ToString());
         }
 
         public void AddLogMessage(LogMessage logM)
