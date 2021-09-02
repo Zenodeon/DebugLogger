@@ -21,6 +21,8 @@ namespace DebugLogger.Wpf
 
         public Enum type;
 
+        private List<LogMessage> logs = new List<LogMessage>();
+
         private bool _active = true;
 
         public bool active
@@ -30,13 +32,19 @@ namespace DebugLogger.Wpf
             {
                 _active = value;
 
-                TabActiveShade.Opacity = value ? 0 : 0.5;                 
+                if (active)
+                    logPanel.DisplayLogs(logs);
+                else
+                    logPanel.RemoveLogs(logs);
+
+                TabActiveShade.Opacity = value ? 0 : 0.5;
             }
         }
 
-        //private Dictionary<int, LogMessage> logs = new Dictionary<int, LogMessage>();
-
-        private List<LogMessage> logs = new List<LogMessage>();
+        private void Tab_Click(object sender, RoutedEventArgs e)
+        {
+            active = !active;
+        }
 
         private int count = 0;
         private int logCount
@@ -120,11 +128,9 @@ namespace DebugLogger.Wpf
         {
             logs.Add(logM);
             logCount++;
-        }
 
-        private void Tab_Click(object sender, RoutedEventArgs e)
-        {
-            active = !active;
+            if (active)
+                logPanel.DisplayLog(logM);
         }
     }    
 }

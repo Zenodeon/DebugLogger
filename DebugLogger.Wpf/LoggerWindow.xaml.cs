@@ -44,7 +44,7 @@ namespace DebugLogger.Wpf
 
         public void ReportLog(LogData logData)
         {
-            Dispatcher.BeginInvoke(() => logPanel.DisplayLog(logData), DispatcherPriority.Normal);
+            Dispatcher.BeginInvoke(() => logPanel.ProcessLog(logData), DispatcherPriority.Normal);
         }
 
         /*

@@ -32,7 +32,7 @@
     
     <Grid>
         <!-- Log List -->
-        <ItemsControl Name="logsControl" ItemsSource="{Binding AccountViews.Tables[0]}" PreviewMouseWheel="logsControl_PreviewMouseWheel">
+        <ItemsControl Name="logsControl" PreviewMouseWheel="logsControl_PreviewMouseWheel">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel IsVirtualizing="True"

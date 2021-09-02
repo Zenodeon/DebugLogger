@@ -40,6 +40,11 @@ namespace DebugLogger.Wpf
             }
         }
 
+        public bool ToggleAutoScroll()
+        {
+            return autoScroll = !autoScroll;
+        }
+
         public LogPanel()
         {          
             InitializeComponent();
@@ -70,36 +75,12 @@ namespace DebugLogger.Wpf
             activeLog.Clear();
         }
 
-        /*
-        public void DisplayLog(LogData logData)
-        {
-            if (activeLog.ContainsKey(logData.log))
-                activeLog[logData.log].logCount++;
-            else
-            {
-                LogMessage logM = CreateLogMessage(logData);
-
-                logsControl.Items.Add(logM.frame);
-
-                if (autoScroll)
-                    logViewer.ScrollToVerticalOffset(logViewer.ScrollableHeight);
-
-                activeLog.Add(logData.log, logM);
-            }
-        }*/
-
-        public void DisplayLog(LogData logData)
+        public void ProcessLog(LogData logData)
         {
             LogMessage logM = CreateLogMessage(logData);
-
-            logsControl.Items.Add(logM.frame);
-
-            if (autoScroll)
-                logViewer.ScrollToVerticalOffset(logViewer.ScrollableHeight);
-
             tabPanel.tabs[logData.logType].AddLogMessage(logM);
         }
-
+           
         private LogMessage CreateLogMessage(LogData logData)
         {
             ContentPresenter frame = new ContentPresenter();
@@ -115,9 +96,28 @@ namespace DebugLogger.Wpf
             return log;
         }
 
-        public bool ToggleAutoScroll()
+        public void DisplayLog(LogMessage logM)
         {
-            return autoScroll = !autoScroll;
+            logsControl.Items.Add(logM.frame);
+           
+            if (autoScroll)
+               logViewer.ScrollToVerticalOffset(logViewer.ScrollableHeight + logM.frame.Height);
+        }
+        public void DisplayLogs(List<LogMessage> logMList)
+        {
+            foreach (LogMessage log in logMList)
+                DisplayLog(log);
+        }
+
+        public void RemoveLog(LogMessage logM)
+        {
+            logsControl.Items.Remove(logM.frame);
+        }
+
+        public void RemoveLogs(List<LogMessage> logMList)
+        {
+            foreach (LogMessage log in logMList)
+                RemoveLog(log);
         }
     }
 }
