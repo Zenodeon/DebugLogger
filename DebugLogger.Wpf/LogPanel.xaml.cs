@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,8 @@ namespace DebugLogger.Wpf
         private ScrollViewer logViewer { get; set; }
 
         private Dictionary<string, LogMessage> activeLog = new Dictionary<string, LogMessage>();
+
+        BindingList<ContentPresenter> tList = new BindingList<ContentPresenter>();
 
         private bool atSll = true;
 
@@ -51,6 +54,12 @@ namespace DebugLogger.Wpf
 
             logsControl.ApplyTemplate();
             logViewer = (ScrollViewer)logsControl.Template.FindName("logViewer", logsControl);
+
+            tList.AllowEdit = true;
+            tList.AllowNew = true;
+            tList.AllowRemove = true;
+
+            logsControl.ItemsSource = tList;
         }
 
         private void logsControl_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -58,7 +67,7 @@ namespace DebugLogger.Wpf
             if (autoScroll & e.Delta > 0)
                 autoScroll = false;
 
-            logViewer.ScrollToVerticalOffset(logViewer.VerticalOffset - (e.Delta / 5));
+            //logViewer.ScrollToVerticalOffset(logViewer.VerticalOffset - (e.Delta / 5));
 
             e.Handled = true;
         }
@@ -98,26 +107,35 @@ namespace DebugLogger.Wpf
 
         public void DisplayLog(LogMessage logM)
         {
-            logsControl.Items.Add(logM.frame);
+            tList.Add(logM.frame);
            
             if (autoScroll)
                logViewer.ScrollToVerticalOffset(logViewer.ScrollableHeight + logM.frame.Height);
         }
         public void DisplayLogs(List<LogMessage> logMList)
         {
+            tList.RaiseListChangedEvents = false;
             foreach (LogMessage log in logMList)
                 DisplayLog(log);
+
+            tList.RaiseListChangedEvents = true;
+            tList.ResetBindings();
         }
 
-        public void RemoveLog(LogMessage logM)
+        public void RemoveLog(LogMessage logM)  
         {
-            logsControl.Items.Remove(logM.frame);
+            tList.Remove(logM.frame);
         }
 
         public void RemoveLogs(List<LogMessage> logMList)
         {
+            tList.RaiseListChangedEvents = false;
+
             foreach (LogMessage log in logMList)
                 RemoveLog(log);
+
+            tList.RaiseListChangedEvents = true;
+            tList.ResetBindings();
         }
     }
 }

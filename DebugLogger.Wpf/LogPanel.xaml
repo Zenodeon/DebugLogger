@@ -35,14 +35,15 @@
         <ItemsControl Name="logsControl" PreviewMouseWheel="logsControl_PreviewMouseWheel">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <VirtualizingStackPanel IsVirtualizing="True"
-                              VirtualizationMode="Recycling" />
+                    <VirtualizingStackPanel VirtualizingPanel.IsVirtualizing="True"
+                                            VirtualizingPanel.VirtualizationMode="Recycling" 
+                                            VirtualizingPanel.ScrollUnit="Pixel"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 
             <ItemsControl.Template>
                 <ControlTemplate TargetType="ItemsControl">
-                    <ScrollViewer Name="logViewer" Background="#1c1c1c" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                    <ScrollViewer Name="logViewer" CanContentScroll="True" Background="#1c1c1c" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
                         <ItemsPresenter/>
                     </ScrollViewer>
                 </ControlTemplate>
