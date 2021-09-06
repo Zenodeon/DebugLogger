@@ -32,20 +32,20 @@
     
     <Grid>
         <!-- Log List -->
-        <ItemsControl Name="logsControl" PreviewMouseWheel="logsControl_PreviewMouseWheel">
+        <ItemsControl Name="logsControl" PreviewMouseWheel="logsControl_PreviewMouseWheel" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <VirtualizingStackPanel VirtualizingPanel.IsVirtualizing="True"
-                                            VirtualizingPanel.VirtualizationMode="Recycling" 
-                                            VirtualizingPanel.ScrollUnit="Pixel"/>
+                    <VirtualizingStackPanel IsVirtualizing="True"
+                                            VirtualizationMode="Recycling" 
+                                            ScrollUnit="Pixel"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 
             <ItemsControl.Template>
                 <ControlTemplate TargetType="ItemsControl">
-                    <ScrollViewer Name="logViewer" CanContentScroll="True" Background="#1c1c1c" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                    <local:AniScrollViewer Name="logViewer" CanContentScroll="True" Background="#1c1c1c" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
                         <ItemsPresenter/>
-                    </ScrollViewer>
+                    </local:AniScrollViewer>
                 </ControlTemplate>
             </ItemsControl.Template>
         </ItemsControl>

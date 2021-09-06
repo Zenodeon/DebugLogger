@@ -8,6 +8,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -22,7 +23,7 @@ namespace DebugLogger.Wpf
         public LoggerWindow loggerWindow { get; set; }
         public TabPanel tabPanel { get; set; }
 
-        private ScrollViewer logViewer { get; set; }
+        private AniScrollViewer logViewer { get; set; }
 
         private Dictionary<string, LogMessage> activeLog = new Dictionary<string, LogMessage>();
 
@@ -53,7 +54,7 @@ namespace DebugLogger.Wpf
             InitializeComponent();
 
             logsControl.ApplyTemplate();
-            logViewer = (ScrollViewer)logsControl.Template.FindName("logViewer", logsControl);
+            logViewer = (AniScrollViewer)logsControl.Template.FindName("logViewer", logsControl);
 
             tList.AllowEdit = true;
             tList.AllowNew = true;
@@ -67,7 +68,9 @@ namespace DebugLogger.Wpf
             if (autoScroll & e.Delta > 0)
                 autoScroll = false;
 
-            //logViewer.ScrollToVerticalOffset(logViewer.VerticalOffset - (e.Delta / 5));
+            //logViewer.ScrollToVerticalOffset(logViewer.VerticalOffset - (e.Delta / 6));
+
+            logViewer.MoveToVerticalOffset(logViewer.staticVerticalOffset - (e.Delta / 4));
 
             e.Handled = true;
         }
