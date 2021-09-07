@@ -43,9 +43,9 @@
 
             <ItemsControl.Template>
                 <ControlTemplate TargetType="ItemsControl">
-                    <local:AniScrollViewer Name="logViewer" CanContentScroll="True" Background="#1c1c1c" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                    <ScrollViewer Name="logViewer" CanContentScroll="True" Background="#1c1c1c" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
                         <ItemsPresenter/>
-                    </local:AniScrollViewer>
+                    </ScrollViewer>
                 </ControlTemplate>
             </ItemsControl.Template>
         </ItemsControl>

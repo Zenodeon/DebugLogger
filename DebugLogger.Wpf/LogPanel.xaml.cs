@@ -23,7 +23,7 @@ namespace DebugLogger.Wpf
         public LoggerWindow loggerWindow { get; set; }
         public TabPanel tabPanel { get; set; }
 
-        private AniScrollViewer logViewer { get; set; }
+        private ScrollViewer logViewer { get; set; }
 
         private Dictionary<string, LogMessage> activeLog = new Dictionary<string, LogMessage>();
 
@@ -54,7 +54,7 @@ namespace DebugLogger.Wpf
             InitializeComponent();
 
             logsControl.ApplyTemplate();
-            logViewer = (AniScrollViewer)logsControl.Template.FindName("logViewer", logsControl);
+            logViewer = (ScrollViewer)logsControl.Template.FindName("logViewer", logsControl);
 
             tList.AllowEdit = true;
             tList.AllowNew = true;
@@ -68,9 +68,7 @@ namespace DebugLogger.Wpf
             if (autoScroll & e.Delta > 0)
                 autoScroll = false;
 
-            //logViewer.ScrollToVerticalOffset(logViewer.VerticalOffset - (e.Delta / 6));
-
-            logViewer.MoveToVerticalOffset(logViewer.staticVerticalOffset - (e.Delta / 4));
+            logViewer.ScrollToVerticalOffset(logViewer.VerticalOffset - (e.Delta / 6));
 
             e.Handled = true;
         }
