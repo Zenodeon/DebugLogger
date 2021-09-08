@@ -14,14 +14,15 @@ namespace DebugLogger.Wpf
         public string log { get; private set; }
         public int logHash => log.GetHashCode();
 
-        public List<DateTime> occurrenceTime { get; private set; }
-        public DateTime latestOccurrence => occurrenceTime[occurrenceTime.Count - 1];
+        public DateTime occasion { get { return occasions[0]; } }
+        public List<DateTime> occasions { get; private set; } 
+        public DateTime latestOccurrence => occasions[logCount - 1];
 
-        public int logCount => occurrenceTime.Count;
+        public int logCount => occasions.Count;
 
         public LogData(DefaultLogType type, string log)
         {
-            occurrenceTime = new List<DateTime> { DateTime.Now };
+            occasions = new List<DateTime> { DateTime.Now };
 
             logType = type;
             this.log = log;
@@ -39,7 +40,7 @@ namespace DebugLogger.Wpf
 
         public static LogData operator +(LogData a, LogData b)
         {
-            a.occurrenceTime = a.occurrenceTime.Concat(b.occurrenceTime).ToList();
+            a.occasions = a.occasions.Concat(b.occasions).ToList();
 
             return a;
         }

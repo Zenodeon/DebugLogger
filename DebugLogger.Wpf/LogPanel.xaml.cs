@@ -25,9 +25,7 @@ namespace DebugLogger.Wpf
 
         private ScrollViewer logViewer { get; set; }
 
-        private Dictionary<string, LogMessage> activeLog = new Dictionary<string, LogMessage>();
-
-        BindingList<ContentPresenter> tList = new BindingList<ContentPresenter>();
+        BindingList<ContentPresenter> activeLogs = new BindingList<ContentPresenter>();
 
         private bool atSll = true;
 
@@ -56,14 +54,14 @@ namespace DebugLogger.Wpf
             logsControl.ApplyTemplate();
             logViewer = (ScrollViewer)logsControl.Template.FindName("logViewer", logsControl);
 
-            tList.AllowEdit = true;
-            tList.AllowNew = true;
-            tList.AllowRemove = true;
+            activeLogs.AllowEdit = true;
+            activeLogs.AllowNew = true;
+            activeLogs.AllowRemove = true;
 
-            logsControl.ItemsSource = tList;
+            logsControl.ItemsSource = activeLogs;
         }
 
-        private void logsControl_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        private void LogsControl_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (autoScroll & e.Delta > 0)
                 autoScroll = false;
@@ -76,13 +74,13 @@ namespace DebugLogger.Wpf
         private void SEBtn_ScrollToEnd(object sender, RoutedEventArgs e)
         {
             logViewer.ScrollToVerticalOffset(logViewer.ScrollableHeight);
+
             autoScroll = true;
         }
 
         public void ClearLogs()
         {
-            logsControl.Items.Clear();
-            activeLog.Clear();
+            activeLogs.Clear();
         }
 
         public void ProcessLog(LogData logData)
@@ -108,35 +106,37 @@ namespace DebugLogger.Wpf
 
         public void DisplayLog(LogMessage logM)
         {
-            tList.Add(logM.frame);
-           
+            activeLogs.Add(logM.frame);
+
             if (autoScroll)
-               logViewer.ScrollToVerticalOffset(logViewer.ScrollableHeight + logM.frame.Height);
+                logViewer.ScrollToVerticalOffset(logViewer.ScrollableHeight + logM.frame.Height);
         }
+
         public void DisplayLogs(List<LogMessage> logMList)
         {
-            tList.RaiseListChangedEvents = false;
+            activeLogs.RaiseListChangedEvents = false;
+
             foreach (LogMessage log in logMList)
                 DisplayLog(log);
 
-            tList.RaiseListChangedEvents = true;
-            tList.ResetBindings();
+            activeLogs.RaiseListChangedEvents = true;
+            activeLogs.ResetBindings();
         }
 
         public void RemoveLog(LogMessage logM)  
         {
-            tList.Remove(logM.frame);
+            activeLogs.Remove(logM.frame);
         }
 
         public void RemoveLogs(List<LogMessage> logMList)
         {
-            tList.RaiseListChangedEvents = false;
+            activeLogs.RaiseListChangedEvents = false;
 
             foreach (LogMessage log in logMList)
                 RemoveLog(log);
 
-            tList.RaiseListChangedEvents = true;
-            tList.ResetBindings();
+            activeLogs.RaiseListChangedEvents = true;
+            activeLogs.ResetBindings();
         }
     }
 }
