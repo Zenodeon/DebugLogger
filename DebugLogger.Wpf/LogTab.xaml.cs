@@ -33,9 +33,9 @@ namespace DebugLogger.Wpf
                 _active = value;
 
                 if (active)
-                    logPanel.DisplayLogs(logs);
+                    logPanel.DisplayLog(logs);
                 else
-                    logPanel.RemoveLogs(logs);
+                    logPanel.RemoveLog(logs);
 
                 TabActiveShade.Opacity = value ? 0 : 0.5;
             }

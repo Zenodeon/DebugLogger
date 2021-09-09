@@ -14,7 +14,7 @@ namespace DebugLogger.Wpf
         public string log { get; private set; }
         public int logHash => log.GetHashCode();
 
-        public DateTime occasion { get { return occasions[0]; } }
+        public DateTime occurred { get { return occasions[0]; } }
         public List<DateTime> occasions { get; private set; } 
         public DateTime latestOccurrence => occasions[logCount - 1];
 

@@ -25,7 +25,7 @@ namespace DebugLogger.Wpf
 
         private ScrollViewer logViewer { get; set; }
 
-        BindingList<ContentPresenter> activeLogs = new BindingList<ContentPresenter>();
+        ActiveLogList<ContentPresenter> activeLogs = new ActiveLogList<ContentPresenter>();
 
         private bool atSll = true;
 
@@ -54,9 +54,7 @@ namespace DebugLogger.Wpf
             logsControl.ApplyTemplate();
             logViewer = (ScrollViewer)logsControl.Template.FindName("logViewer", logsControl);
 
-            activeLogs.AllowEdit = true;
-            activeLogs.AllowNew = true;
-            activeLogs.AllowRemove = true;
+            activeLogs.Initialize();
 
             logsControl.ItemsSource = activeLogs;
         }
@@ -106,37 +104,25 @@ namespace DebugLogger.Wpf
 
         public void DisplayLog(LogMessage logM)
         {
-            activeLogs.Add(logM.frame);
+            activeLogs.Add(logM);
 
             if (autoScroll)
                 logViewer.ScrollToVerticalOffset(logViewer.ScrollableHeight + logM.frame.Height);
         }
 
-        public void DisplayLogs(List<LogMessage> logMList)
+        public void DisplayLog(List<LogMessage> logMList)
         {
-            activeLogs.RaiseListChangedEvents = false;
-
-            foreach (LogMessage log in logMList)
-                DisplayLog(log);
-
-            activeLogs.RaiseListChangedEvents = true;
-            activeLogs.ResetBindings();
+            activeLogs.Add(logMList);
         }
 
         public void RemoveLog(LogMessage logM)  
         {
-            activeLogs.Remove(logM.frame);
+            activeLogs.Remove(logM);
         }
 
-        public void RemoveLogs(List<LogMessage> logMList)
+        public void RemoveLog(List<LogMessage> logMList)
         {
-            activeLogs.RaiseListChangedEvents = false;
-
-            foreach (LogMessage log in logMList)
-                RemoveLog(log);
-
-            activeLogs.RaiseListChangedEvents = true;
-            activeLogs.ResetBindings();
+            activeLogs.Remove(logMList);
         }
     }
 }
