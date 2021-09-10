@@ -42,6 +42,38 @@ namespace DebugLogger.Wpf.Sample
         {
             DLog.Log("Sample Project Running : Type 1");
             DLog.Log("Sample Project Running : Type 2");
+
+            //100 | 100
+            DLog.Log(100.KFormat());
+            DLog.Log(123.KFormat());
+
+            //1000 | 1K
+            DLog.Log(1000.KFormat());
+            DLog.Log(1234.KFormat());
+
+            //10000 | 10K
+            DLog.Log(10000.KFormat());
+            DLog.Log(12345.KFormat());
+
+            //100000 100K
+            DLog.Log(100000.KFormat());
+            DLog.Log(123456.KFormat());
+
+            //1000000 1M
+            DLog.Log(1000000.KFormat());
+            DLog.Log(1234567.KFormat());
+
+            //10000000 10M
+            DLog.Log(10000000.KFormat());
+            DLog.Log(12345678.KFormat());
+
+            //100000000 100M
+            DLog.Log(100000000.KFormat());
+            DLog.Log(123456789.KFormat());
+
+            //1000000000 1000M
+            DLog.Log(1000000000.KFormat());
+            DLog.Log(1234567891.KFormat());
         }
 
         private void OnClosingWindow(object sender, CancelEventArgs e)

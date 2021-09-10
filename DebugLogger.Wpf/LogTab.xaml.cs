@@ -57,7 +57,7 @@ namespace DebugLogger.Wpf
             {
                 count = value;
 
-                Count.Content = value;
+                Count.Content = value.KFormat();
             }
         }
 

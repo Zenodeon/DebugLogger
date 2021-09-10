@@ -14,7 +14,7 @@ namespace DebugLogger.Wpf
         public string log { get; private set; }
         public int logHash => log.GetHashCode();
 
-        public DateTime occurred { get { return occasions[0]; } }
+        public DateTime occurred { get { return occasions[0]; } private set { occasions[0] = value; } }
         public List<DateTime> occasions { get; private set; } 
         public DateTime latestOccurrence => occasions[logCount - 1];
 
@@ -26,6 +26,11 @@ namespace DebugLogger.Wpf
 
             logType = type;
             this.log = log;
+        }
+
+        public void OffsetOccurredTick()
+        {
+            occurred = occurred.AddTicks(1);
         }
         
         #region Extension
@@ -64,6 +69,5 @@ namespace DebugLogger.Wpf
         {
             return $"[{dt.ToString("hh:mm:ss:fff")}]";
         }
-
     }
 }

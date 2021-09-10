@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Windows.Controls;
 using System.Text;
 
@@ -21,11 +22,19 @@ namespace DebugLogger.Wpf
 
         public void Add(LogMessage logM)
         {
-            pairs.Add(logM.logData.occurred, logM);
+            if(!pairs.ContainsKey(logM.logData.occurred))
+            {
+                pairs.Add(logM.logData.occurred, logM);
 
-            int i = pairs.IndexOfKey(logM.logData.occurred);
+                int i = pairs.IndexOfKey(logM.logData.occurred);
 
-            this.Insert(i, (T)logM.frame); ;
+                this.Insert(i, (T)logM.frame);
+            }
+            else
+            {
+                logM.logData.OffsetOccurredTick();
+                Add(logM);
+            }
         }
 
         public void Remove(LogMessage logM)
