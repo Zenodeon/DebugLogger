@@ -60,7 +60,7 @@ namespace DebugLogger.Wpf
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            logPanel.ClearLogs();
+            logPanel.ClearAllLogs();
         }
 
         private void ToggleAutoScroll(object sender, RoutedEventArgs e)

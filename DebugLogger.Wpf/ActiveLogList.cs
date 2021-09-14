@@ -28,6 +28,8 @@ namespace DebugLogger.Wpf
 
                 int i = pairs.IndexOfKey(logM.logData.occurred);
 
+                dummy();
+
                 this.Insert(i, (T)logM.frame);
             }
             else
@@ -37,9 +39,16 @@ namespace DebugLogger.Wpf
             }
         }
 
+        private void dummy()
+        {
+
+        }
+
         public void Remove(LogMessage logM)
         {
+            activeLogM.Remove(logM);
             pairs.Remove(logM.logData.occurred);
+
             base.Remove((T)logM.frame);
         }
 
@@ -68,6 +77,8 @@ namespace DebugLogger.Wpf
         public new void Clear()
         {
             activeLogM.Clear();
+            pairs.Clear();
+
             base.Clear();
         }
 

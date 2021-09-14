@@ -53,5 +53,21 @@ namespace DebugLogger.Wpf
             tabViewer.ScrollToHorizontalOffset(tabViewer.HorizontalOffset - (e.Delta / 5));
             e.Handled = true;
         }
+
+        public void ClearTabLogs(bool activeTabsOnly = false)
+        {
+            foreach (KeyValuePair<Enum, LogTab> tabIndex in tabs)
+            {
+                if (activeTabsOnly)
+                {
+                    if (tabIndex.Value.active)
+                        tabIndex.Value.ClearLogs();
+                }
+                else
+                {
+                    tabIndex.Value.ClearLogs();
+                }
+            }
+        }
     }
 }

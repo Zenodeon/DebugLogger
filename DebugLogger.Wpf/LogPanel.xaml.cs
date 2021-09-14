@@ -71,13 +71,14 @@ namespace DebugLogger.Wpf
 
         private void SEBtn_ScrollToEnd(object sender, RoutedEventArgs e)
         {
-            logViewer.ScrollToVerticalOffset(logViewer.ScrollableHeight);
+            logViewer.ScrollToEnd();
 
             autoScroll = true;
         }
 
-        public void ClearLogs()
+        public void ClearAllLogs()
         {
+            tabPanel.ClearTabLogs();
             activeLogs.Clear();
         }
 
@@ -107,12 +108,14 @@ namespace DebugLogger.Wpf
             activeLogs.Add(logM);
 
             if (autoScroll)
-                logViewer.ScrollToVerticalOffset(logViewer.ScrollableHeight + logM.frame.Height);
+                logViewer.ScrollToEnd();
         }
 
         public void DisplayLog(List<LogMessage> logMList)
         {
             activeLogs.Add(logMList);
+
+            logViewer.ScrollToEnd();
         }
 
         public void RemoveLog(LogMessage logM)  

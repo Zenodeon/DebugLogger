@@ -35,14 +35,14 @@ namespace DebugLogger.Wpf.Sample
             DLog.Log("Sample Project Running : Type 1");
             DLog.Log("Sample Project Running : Type 2");
 
-            TestFunction();
-        }
-
-        private void TestFunction()
-        {
             DLog.Log("Sample Project Running : Type 1");
             DLog.Log("Sample Project Running : Type 2");
 
+            //TestKFormat();
+        }
+
+        private void TestKFormat()
+        {
             //100 | 100
             DLog.Log(100.KFormat());
             DLog.Log(123.KFormat());

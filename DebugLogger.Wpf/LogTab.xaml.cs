@@ -132,5 +132,12 @@ namespace DebugLogger.Wpf
             if (active)
                 logPanel.DisplayLog(logM);
         }
+
+        public void ClearLogs()
+        {
+            logs.Clear();
+
+            logCount = 0;
+        }
     }    
 }
