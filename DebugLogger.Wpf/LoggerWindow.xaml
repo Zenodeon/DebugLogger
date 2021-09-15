@@ -134,7 +134,6 @@
             <local:TabPanel Grid.Row="1" x:Name="tabPanel" Width="Auto" Height="Auto"/>
 
             <local:LogPanel Grid.Row="2" x:Name="logPanel" Width="Auto" Height="Auto"/>
-
         </Grid>
     </Border>
 </Window>
