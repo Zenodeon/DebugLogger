@@ -2,6 +2,12 @@
 Class library To Print Custom Logs on a diffrent window for WPF applications.
 
 <h2>Change Log</h2>
+1.0.2 :
+</br>
+-----| Major UI Changes (from 1.0.1, i think, i forgor).
+</br>
+-----| 3 New Log Types - Deafult, Warn, Alert/Error.
+</br></br>                
 1.0.1 : Fixed a bug when trying to log something right after another didn't get displayed/shown. 
-
-1.0.0 : Initial Project
+</br></br>
+1.0.0 : Initial Project.
