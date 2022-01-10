@@ -108,16 +108,25 @@
 
                 <Rectangle Grid.Column="1" Fill="{DynamicResource ToggleCurrent}"/>
                 <Border Grid.Column="1" BorderThickness="0" Background="#2d2d30" CornerRadius="0, 8, 0, 0"/>
-                
-                <Button Grid.Column="2" Style="{DynamicResource AutoScrollToggleBtn}" Name="TAC" Click="ToggleAutoScroll"/>
+
+                <Button Grid.Column="2" Style="{DynamicResource AutoScrollToggleBtn}" Name="TAC" Click="ToggleAutoScroll">
+                    <Image Source="/DebugLogger.Wpf;component/Assets/button/down.png" Width="20" Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Button>
+
                 
                 <Rectangle Grid.Column="3" Fill="{DynamicResource ToggleCurrent}"/>
                 <Border Grid.Column="3" BorderThickness="0" Background="#2d2d30" CornerRadius="8, 0, 0, 0"/>
 
 
-                <Button Grid.Column="4" Style="{StaticResource CtmBtn}"/>
-                <Button Grid.Column="5" Style="{StaticResource CtmBtn}"/>
-                <Button Grid.Column="6" Style="{StaticResource CloseBtn}" Click="CloseWindow"/>
+                <Button Grid.Column="4" Style="{StaticResource CtmBtn}" Click="MinWindow">
+                    <Image Source="/DebugLogger.Wpf;component/Assets/button/min.png" Width="15" Height="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Button>
+                <Button Grid.Column="5" Style="{StaticResource CtmBtn}" Click="MaxWindow">
+                    <Image Source="/DebugLogger.Wpf;component/Assets/button/max.png" Width="15" Height="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Button>
+                <Button Grid.Column="6" Style="{StaticResource CloseBtn}" Click="CloseWindow">
+                    <Image Source="/DebugLogger.Wpf;component/Assets/button/close.png" Width="18" Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Button>
             </Grid>
             
             <Grid Grid.Row="3">

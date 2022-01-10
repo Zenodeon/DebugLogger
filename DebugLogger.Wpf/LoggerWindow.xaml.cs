@@ -83,6 +83,19 @@ namespace DebugLogger.Wpf
             Close();
         }
 
+        private void MaxWindow(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
+                WindowState = WindowState.Normal;
+            else if (WindowState == WindowState.Normal)
+                WindowState = WindowState.Maximized;
+        }
+
+        private void MinWindow(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
         #endregion
 
         public void ToggleAutoScrollButton(bool active)

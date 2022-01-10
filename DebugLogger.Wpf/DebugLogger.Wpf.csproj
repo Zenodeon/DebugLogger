@@ -12,8 +12,26 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/Zenodeon/DebugLogger</RepositoryUrl>
     <PackageTags>Debug Logger, DebugLogger, debuglogger, debug logger, debug</PackageTags>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\button\close.png" />
+    <None Remove="Assets\button\down.png" />
+    <None Remove="Assets\button\max.png" />
+    <None Remove="Assets\button\min.png" />
+    <None Remove="Assets\min.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\button\close.png" />
+    <Resource Include="Assets\button\down.png" />
+    <Resource Include="Assets\button\max.png" />
+    <Resource Include="Assets\button\min.png" />
+    <Resource Include="Assets\min.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
 
   <ItemGroup>
     <Page Update="LogTab.xaml">
