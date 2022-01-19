@@ -1,6 +1,10 @@
 # DebugLogger.Wpf [![NuGet](https://img.shields.io/nuget/v/DebugLogger.Wpf.svg)](https://www.nuget.org/packages/DebugLogger.Wpf/)
 Class library To Print Custom Logs on a diffrent window for WPF applications.
 
+<h2>Todo List</h2>
+- Same Message Source Collapse (Toggle)
+- Elapsed time from previous message.
+
 <h2>Change Log</h2>
 1.0.2 :
 </br>
