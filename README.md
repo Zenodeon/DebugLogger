@@ -2,7 +2,7 @@
 Class library To Print Custom Logs on a diffrent window for WPF applications.
 
 <h2>Todo List</h2>
-- Same Message Source Collapse (Toggle)
+- Same Message Source Collapse (Toggle) </br>
 - Elapsed time from previous message.
 
 <h2>Change Log</h2>
