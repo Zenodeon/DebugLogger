@@ -4,7 +4,10 @@ Class library To Print Custom Logs on a diffrent window for WPF applications.
 <h2>Todo List</h2>
 - Same Message Source Collapse (Toggle) </br>
 - Elapsed time from previous message. </br>
-- Fix a bug where you can change the order of the text by highlighting them and moving it. bruh moment
+- Fix a bug where you can change the order of the text by highlighting them and moving it. bruh moment </br>
+- Null check while logging </br>
+- Always on top mode </br>
+- Message Box height expansion </br>
 
 <h2>Change Log</h2>
 1.0.2 :
