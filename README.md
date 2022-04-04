@@ -10,6 +10,7 @@ Class library To Print Custom Logs on a diffrent window for WPF applications.
 - Message Box height expansion </br>
 - Pause/UnPause Main Thread </br>
 - Log Buffer
+- Window Position and Mode (always on top, on top when error, etc if possible)
 
 <h2>Change Log</h2>
 1.0.2 :
