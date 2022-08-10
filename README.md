@@ -13,6 +13,8 @@ Class library To Print Custom Logs on a diffrent window for WPF applications.
 - Pause/UnPause Main Thread </br>
 - Log Buffer </br>
 - Window Position and Mode (always on top, on top when error, etc if possible) </br>
+- /.Core Namespace for all Core Class
+- Fix/Clean ActiveLogList Class
 
 <h2>Change Log</h2>
 1.0.2 :
